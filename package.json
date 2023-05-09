@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/cebotaritigran/battleship/issues"
   },
-  "homepage": "https://github.com/cebotaritigran/battleship#readme"
+  "homepage": "https://github.com/cebotaritigran/battleship#readme",
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
+    "babel-jest": "^29.5.0",
+    "jest": "^29.5.0",
+    "webpack": "^5.82.0",
+    "webpack-cli": "^5.1.1"
+  }
 }
