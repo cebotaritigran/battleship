@@ -1,6 +1,8 @@
-let Ship = (l) => {
-    let shipLength = l
+let Ship = (length, position) => {
+    let shipLength = length
     let hit = 0
+    // write function to place ship
+    let shipPosition = position
     console.log(shipLength)
     let isSunk = () => {
         if (hit == shipLength) {
@@ -14,7 +16,7 @@ let Ship = (l) => {
         console.log(hit)
         return hit;
     }
-    return { shipLength, hitNumber, isSunk }
+    return { shipLength, hitNumber, isSunk, position }
 }
 
 export { Ship }
