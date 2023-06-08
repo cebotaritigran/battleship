@@ -13,14 +13,20 @@ let GameBoard = (ship) => {
 
     let placeShip = (ship) => {
         for (let i = 0; i < ship.length; i++) {
-            coordinates[ship[i]] = "s"
+            coordinates[ship[i]] = 1
         }
         console.log(coordinates)
         return coordinates
     }
 
-    let receiveAttack = (x) => {
-
+    let receiveAttack = (attackCoordinate) => {
+        if (coordinates[attackCoordinate] == 0) {
+            coordinates[attackCoordinate] = 2
+        } else if (coordinates[attackCoordinate] == 1) {
+            coordinates[attackCoordinate] = 3
+        }
+        console.log(coordinates)
+        return coordinates
     }
     return { coordinates, receiveAttack, placeShip };
 }

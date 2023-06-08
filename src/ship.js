@@ -16,7 +16,7 @@ let Ship = (length, position) => {
         console.log(hit)
         return hit;
     }
-    return { shipLength, hitNumber, isSunk, position }
+    return { shipLength, hitNumber, isSunk, shipPosition }
 }
 
 export { Ship }
