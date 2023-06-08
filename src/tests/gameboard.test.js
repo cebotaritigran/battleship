@@ -51,7 +51,8 @@ test('does hit a ship', () => {
     let board = GameBoard([1, 9]);
     let newShip = Ship(2,[0, 8])
     board.placeShip(newShip.shipPosition)
-    console.log(board.coordinates)
+    newShip.hitNumber();
+    console.log(newShip.isSunk())
     expect(board.receiveAttack(0)).toStrictEqual([
         3, 0, 0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0, 0, 0,
@@ -62,4 +63,35 @@ test('does hit a ship', () => {
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0
     ]);
+});
+
+test('test if ship sunks', () => {
+    let board = GameBoard([1, 9]);
+    let newShip = Ship(2,[0, 8])
+    board.placeShip(newShip.shipPosition)
+    console.log(newShip.isSunk())
+    expect(board.receiveAttack(0)).toStrictEqual([
+        3, 0, 0, 0, 0, 0, 0, 0,
+        1, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0
+    ]);
+    newShip.hitNumber();
+    expect(board.receiveAttack(8)).toStrictEqual([
+        3, 0, 0, 0, 0, 0, 0, 0,
+        3, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0
+    ]);
+    newShip.hitNumber();
+    console.log(board.gameOver());
+    console.log(newShip.isSunk())
 });

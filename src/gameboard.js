@@ -28,7 +28,15 @@ let GameBoard = (ship) => {
         console.log(coordinates)
         return coordinates
     }
-    return { coordinates, receiveAttack, placeShip };
+    let gameOver = () => {
+        if (coordinates.includes(1)) {
+            return false;
+        }
+        if (coordinates.includes(1) == false) {
+            return true
+        }
+    }
+    return { coordinates, receiveAttack, placeShip,gameOver };
 }
 
 export { GameBoard }
