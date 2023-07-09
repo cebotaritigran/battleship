@@ -32,7 +32,7 @@ test('is ship placed on board', () => {
 });
 
 test('does hit a empty space', () => {
-    let board = GameBoard([1, 9]);
+    let board = GameBoard([1, 0]);
     let newShip = Ship(2,[0, 8])
 
     expect(board.receiveAttack(1)).toStrictEqual([
