@@ -4,16 +4,17 @@ import { Ship } from "./ship";
 // doesn't have ai yet this is just player and his turn and 
 let Player = (playerName) => {
     const playerN = playerName;
-    const turn = false;
+    let turn = false;
+    let enemyTurn = true;
     // to store previous attacks and not let them be repeated
     const previousAttacks = [];
-    let gameboard = GameBoard(4);
+    let gameboard = GameBoard([1, 9]);
     // let newShip = Ship(2, [0, 8])
     // gameboard.placeShip(newShip.shipPosition)
 
     // to check the turn, might be very useless funtion
     let checkTurn = () => {
-        return this.turn;
+        return turn;
     }
 
     // set turn to false when player has played his turn 
@@ -28,6 +29,7 @@ let Player = (playerName) => {
     let attack = (coordinate) => {
         previousAttacks.push(coordinate);
         gameboard.receiveAttack(coordinate);
+        return gamboard.coordinates
     }
 
     return {
