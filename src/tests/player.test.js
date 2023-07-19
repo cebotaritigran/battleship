@@ -98,7 +98,7 @@ test('player1 attacks player2 hits first attack and misses the second', () => {
     let ai = Player("ai");
     let destroyerPlayerTwo = Ship(2, [17, 18])
     ai.gameboard.placeShip(destroyerPlayerTwo.shipPosition)
-    expect(ai.gameboard.receiveAttack(17)).toStrictEqual([
+    expect(ai.attack(17)).toStrictEqual([
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 3, 1, 0, 0, 0, 0, 0,
@@ -108,6 +108,9 @@ test('player1 attacks player2 hits first attack and misses the second', () => {
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0
     ]);
+    
+    //checking if attacked coordinated is in previousattacks array
+    console.log(ai.previousAttacks)
     expect(ai.gameboard.receiveAttack(16)).toStrictEqual([
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0,

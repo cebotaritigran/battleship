@@ -7,7 +7,7 @@ let Player = (playerName) => {
     let turn = false;
     let enemyTurn = true;
     // to store previous attacks and not let them be repeated
-    const previousAttacks = [];
+    let previousAttacks = [];
     let gameboard = GameBoard([1, 9]);
     // let newShip = Ship(2, [0, 8])
     // gameboard.placeShip(newShip.shipPosition)
@@ -29,7 +29,7 @@ let Player = (playerName) => {
     let attack = (coordinate) => {
         previousAttacks.push(coordinate);
         gameboard.receiveAttack(coordinate);
-        return gamboard.coordinates
+        return gameboard.coordinates
     }
 
     return {
@@ -38,6 +38,7 @@ let Player = (playerName) => {
         setTurn,
         attack,
         gameboard,
+        previousAttacks,
         // newShip,
         playerN
     }
