@@ -3,7 +3,7 @@ import { Ship } from "./ship";
 
 // doesn't have ai yet this is just player and his turn and 
 let Player = (playerName) => {
-    const playerN = playerName;
+    let playerN = playerName;
     let turn = false;
     let enemyTurn = true;
     // to store previous attacks and not let them be repeated
@@ -27,9 +27,28 @@ let Player = (playerName) => {
     }
 
     let attack = (coordinate) => {
-        previousAttacks.push(coordinate);
-        gameboard.receiveAttack(coordinate);
-        return gameboard.coordinates
+        // if player is ai then we will have him do some tricks againts us
+        if (playerN === "ai") {
+            console.log("hey")
+            if (previousAttacks.includes(coordinate) == false) {
+                console.log(previousAttacks.includes(coordinate))
+                previousAttacks.push(coordinate);
+                gameboard.receiveAttack(coordinate);
+                return gameboard.coordinates
+            } else {
+                return "can't attack already attacked tile";
+            }
+        } else {  //if not then all the same
+            if (previousAttacks.includes(coordinate) == false) {
+                console.log(previousAttacks.includes(coordinate))
+                previousAttacks.push(coordinate);
+                gameboard.receiveAttack(coordinate);
+                return gameboard.coordinates
+            } else {
+                return "can't attack already attacked tile";
+            }
+        }
+
     }
 
     return {
