@@ -29,11 +29,14 @@ let Player = (playerName) => {
     let attack = (coordinate) => {
         // if player is ai then we will have him do some tricks againts us
         if (playerN === "ai") {
-            console.log("hey")
-            if (previousAttacks.includes(coordinate) == false) {
-                console.log(previousAttacks.includes(coordinate))
-                previousAttacks.push(coordinate);
-                gameboard.receiveAttack(coordinate);
+            // the start of corner cases
+            //random attack
+            let aiAttack = Math.floor(Math.random() * 65);
+
+            if (previousAttacks.includes(aiAttack) == false) {
+                console.log(previousAttacks.includes(aiAttack))
+                previousAttacks.push(aiAttack);
+                gameboard.receiveAttack(aiAttack);
                 return gameboard.coordinates
             } else {
                 return "can't attack already attacked tile";

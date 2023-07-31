@@ -2,6 +2,7 @@ import { GameBoard } from "../gameboard";
 import { Ship } from "../ship";
 import { Player } from "../player";
 
+//TEST-1
 test('player 1 has his gameboard', () => {
     let tigrits = Player("tigrits");
     expect(tigrits.gameboard.coordinates).toStrictEqual([
@@ -16,6 +17,7 @@ test('player 1 has his gameboard', () => {
     ]);
 });
 
+//TEST-2
 test('player 1 has his gameboard', () => {
     let tigrits = Player("tigrits");
     let ai = Player("ai");
@@ -31,11 +33,14 @@ test('player 1 has his gameboard', () => {
     ]);
 });
 
+//TEST-3
 test('check player1s turn', () => {
     let tigrits = Player("tigrits");
     expect(tigrits.checkTurn()).toStrictEqual(false);
 });
 
+
+//TEST-4
 test('player1 placeship on the board', () => {
     let tigrits = Player("tigrits");
     let ai = Player("ai");
@@ -52,6 +57,8 @@ test('player1 placeship on the board', () => {
     ]);
 });
 
+
+//TEST-5
 test('player1 and player2 placeship on the board on different spots', () => {
     let tigrits = Player("tigrits");
     let destroyer = Ship(2, [0, 8])
@@ -80,6 +87,8 @@ test('player1 and player2 placeship on the board on different spots', () => {
     ]);
 });
 
+
+//TEST-6
 test('player1 attacks player2 hits first attack and misses the second', () => {
     let tigrits = Player("tigrits");
     let destroyer = Ship(2, [0, 8])
@@ -95,7 +104,7 @@ test('player1 attacks player2 hits first attack and misses the second', () => {
     ]);
 
 
-    let ai = Player("ai");
+    let ai = Player("fakeai");
     let destroyerPlayerTwo = Ship(2, [17, 18])
     ai.gameboard.placeShip(destroyerPlayerTwo.shipPosition)
     expect(ai.attack(17)).toStrictEqual([
@@ -124,6 +133,8 @@ test('player1 attacks player2 hits first attack and misses the second', () => {
 });
 
 
+
+//TEST-7
 //check if players can attack same tile twice (they shouldn't)
 test('player1 attacks player2 attacks same tile, should give an error message', () => {
     let tigrits = Player("tigrits");
@@ -140,7 +151,7 @@ test('player1 attacks player2 attacks same tile, should give an error message', 
     ]);
 
 
-    let ai = Player("ai");
+    let ai = Player("fakeai");
     let destroyerPlayerTwo = Ship(2, [17, 18])
     ai.gameboard.placeShip(destroyerPlayerTwo.shipPosition)
     expect(ai.attack(17)).toStrictEqual([
@@ -167,8 +178,11 @@ test('player1 attacks player2 attacks same tile, should give an error message', 
     );
 });
 
+
+//TEST-8
 //if player 2 is ai, after first attack which will be random if hits it should continue to attack tiles nearby
 // basicly ai
 test('if player 2 is ai, after first attack which will be random if hits it should continue to attack tiles nearby', () => {
-
+    let tigrits = Player("tigrits");
+    let destroyer = Ship(2, [0, 8])
 });

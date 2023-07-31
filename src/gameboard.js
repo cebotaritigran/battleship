@@ -11,6 +11,7 @@ let GameBoard = (ship) => {
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0
     ]
+    let hitMiss = []
 
     // place the ship on the ship's given coordinates change the maps coordinate from 0 to 1
     let placeShip = (ship) => {
@@ -26,9 +27,11 @@ let GameBoard = (ship) => {
         if (coordinates[attackCoordinate] == 0) {
             // miss is 2
             coordinates[attackCoordinate] = 2
+            hitMiss.push(2)
         } else if (coordinates[attackCoordinate] == 1) {
             // hit is 3
             coordinates[attackCoordinate] = 3
+            hitMiss.push(3)
         }
         console.log(coordinates)
         return coordinates
@@ -44,7 +47,7 @@ let GameBoard = (ship) => {
             return true
         }
     }
-    return { coordinates, receiveAttack, placeShip,gameOver };
+    return { coordinates, receiveAttack, placeShip, gameOver };
 }
 
 export { GameBoard }
