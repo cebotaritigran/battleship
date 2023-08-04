@@ -119,7 +119,7 @@ test('player1 attacks player2 hits first attack and misses the second', () => {
     ]);
 
     //checking if attacked coordinated is in previousattacks array
-    console.log(ai.previousAttacks)
+    //console.log(ai.previousAttacks)
     expect(ai.gameboard.receiveAttack(16)).toStrictEqual([
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0,
@@ -166,13 +166,13 @@ test('player1 attacks player2 attacks same tile, should give an error message', 
     ]);
 
     //checking if attacked coordinated is in previousattacks array
-    console.log(ai.previousAttacks)
+    //console.log(ai.previousAttacks)
     expect(ai.attack(17)).toStrictEqual(
         "can't attack already attacked tile"
     );
 
     //checking if attacked coordinated is in previousattacks array
-    console.log(ai.previousAttacks)
+    //console.log(ai.previousAttacks)
     expect(ai.attack(17)).toStrictEqual(
         "can't attack already attacked tile"
     );
@@ -185,4 +185,10 @@ test('player1 attacks player2 attacks same tile, should give an error message', 
 test('if player 2 is ai, after first attack which will be random if hits it should continue to attack tiles nearby', () => {
     let tigrits = Player("tigrits");
     let destroyer = Ship(2, [0, 8])
+    tigrits.gameboard.placeShip(destroyer.shipPosition)
+    let ai = Player("ai");
+    let destroyerPlayerTwo = Ship(2, [17, 18])
+    ai.gameboard.placeShip(destroyerPlayerTwo.shipPosition)
+    console.log(ai.attack())
+    console.log(ai.attack())
 });

@@ -19,7 +19,7 @@ let GameBoard = (ship) => {
             // where ship is 1
             coordinates[ship[i]] = 1
         }
-        console.log(coordinates)
+        //console.log(coordinates)
         return coordinates
     }
 
@@ -33,7 +33,7 @@ let GameBoard = (ship) => {
             coordinates[attackCoordinate] = 3
             hitMiss.push(3)
         }
-        console.log(coordinates)
+        //console.log(coordinates)
         return coordinates
     }
     // we can check if game over simply by looking in our array to see if there are any
@@ -47,7 +47,7 @@ let GameBoard = (ship) => {
             return true
         }
     }
-    return { coordinates, receiveAttack, placeShip, gameOver };
+    return { coordinates, receiveAttack, placeShip, gameOver, hitMiss };
 }
 
 export { GameBoard }
