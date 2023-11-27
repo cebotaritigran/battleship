@@ -29,6 +29,9 @@ let Player = (playerName) => {
     let attack = (coordinate) => {
         // if player is ai then we will have him do some tricks againts us
         let aiAttack;
+
+        //                ****there needs to be a case where it checks if its ai's turn****
+        
         if (playerN === "ai") {
             //random attack if the previous attack missed or if there weren't any attacks at all
             if (gameboard.hitMiss[gameboard.hitMiss.length - 1] === 2 || gameboard.hitMiss.length === 0) {

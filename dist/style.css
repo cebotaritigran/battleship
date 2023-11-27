@@ -1,0 +1,25 @@
+.sketchPad {
+    flex: 0 1 0;
+}
+
+.gridContainer {
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.gridBox {
+    height: 1fr;
+    width: 1fr;
+    color: rgb(241, 236, 236);
+    background-color: rgb(244, 238, 238);
+}
+
+.ship{
+    background-color: green;
+}
+
+.gridBox:hover {
+    background-color: rgb(255, 72, 109);
+}
