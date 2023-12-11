@@ -26,3 +26,13 @@ test('ship is not sunk', () => {
     ship1.hitNumber();
     expect(ship1.isSunk()).toBe(false);
 });
+
+test('ship is not sunk', () => {
+    let ship1 = Ship(4);
+    ship1.hitNumber();
+    ship1.hitNumber();
+    ship1.hitNumber();
+    ship1.hitNumber();
+    ship1.hitNumber();
+    expect(ship1.isSunk()).toBe(true);
+});

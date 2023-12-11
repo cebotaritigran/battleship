@@ -20,7 +20,7 @@ test('player 1 has his gameboard', () => {
 });
 
 //TEST-2
-test('player 1 has his gameboard', () => {
+test('player 2 has his gameboard', () => {
     let tigrits = Player("tigrits");
     let ai = Player("ai");
     expect(ai.gameboard.coordinates).toStrictEqual([
@@ -217,11 +217,38 @@ test('player1 attacks player2 attacks same tile, should give an error message', 
 // basicly ai
 test('if player 2 is ai, after first attack which will be random if hits it should continue to attack tiles nearby', () => {
     let tigrits = Player("tigrits");
-    let destroyer = Ship(2, [0, 8])
+    let destroyer = Ship(2, [0, 8]);
     tigrits.gameboard.placeShip(destroyer.shipPosition)
     let ai = Player("ai");
     let destroyerPlayerTwo = Ship(2, [17, 18])
     ai.gameboard.placeShip(destroyerPlayerTwo.shipPosition)
     console.log(ai.attack())
     console.log(ai.attack())
+});
+
+//TEST 9
+// check if the players turn is swaping correctly
+test('checks if the players turn and the after attack checks the players turn', () => {
+    let tigrits = Player("tigrits");
+    let destroyer = Ship(2, [0, 10]);
+    tigrits.gameboard.placeShip(destroyer.shipPosition)
+    let ai = Player("ai");
+    let destroyerPlayerTwo = Ship(2, [21, 22])
+    ai.gameboard.placeShip(destroyerPlayerTwo.shipPosition)
+
+    expect(ai.gameboard.receiveAttack(21)).toStrictEqual([
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 3, 1, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ]);
+    //testing
+    console.log(ai.attack(21))
+    console.log(tigrits.attack(22))
 });

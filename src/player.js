@@ -5,7 +5,6 @@ import { Ship } from "./ship";
 let Player = (playerName) => {
     let playerN = playerName;
     let turn = false;
-    let enemyTurn = true;
     // to store previous attacks and not let them be repeated
     let previousAttacks = [];
     let gameboard = GameBoard([1, 9]);
@@ -29,26 +28,30 @@ let Player = (playerName) => {
     let attack = (coordinate) => {
         // if player is ai then we will have him do some tricks againts us
         let aiAttack;
-
         //                ****there needs to be a case where it checks if its ai's turn****
-        
         if (playerN === "ai") {
-            //random attack if the previous attack missed or if there weren't any attacks at all
+            // if the previous attack missed or if there weren't any attacks at all
+            // randomly attack a coordinate
             if (gameboard.hitMiss[gameboard.hitMiss.length - 1] === 2 || gameboard.hitMiss.length === 0) {
                 console.log("missed")
                 aiAttack = Math.floor(Math.random() * 65);
-                if (previousAttacks.includes(aiAttack) == false) {
+                //checking if the ai randomly attacked already bombed tile
+                if (previousAttacks.includes(aiAttack) == false) { // if it didn't just attack that title
                     console.log(previousAttacks.includes(aiAttack))
                     previousAttacks.push(aiAttack);
                     gameboard.receiveAttack(aiAttack);
+                    //new
+                    setTurn();
+                    console.log(turn)
                     return gameboard.coordinates
-                } else {
+                } else { // if it did then return an error
                     return "can't attack already attacked tile";
                 }
             } else {
                 // if hit then continue on attacking close tiles so that game is more challenging
                 console.log("hit")
                 //aiAttack = previousAttacks[previousAttacks.length - 1] + 1
+                // work in progress
                 aiAttack = Math.floor(Math.random() * 65);
                 gameboard.receiveAttack(aiAttack);
                 return gameboard.coordinates

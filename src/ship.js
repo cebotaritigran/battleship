@@ -8,7 +8,7 @@ let Ship = (length, position) => {
     let shipPosition = position
     console.log(shipLength)
     let isSunk = () => {
-        if (hit == shipLength) {
+        if (hit >= shipLength) {
             return true
         } else {
             return false
