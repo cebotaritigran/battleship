@@ -25,7 +25,7 @@ let Player = (playerName) => {
         }
     }
 
-    let attack = (coordinate) => {
+    let attack = (coordinate,enemy) => {
         // if player is ai then we will have him do some tricks againts us
         let aiAttack;
         //                ****there needs to be a case where it checks if its ai's turn****
@@ -39,11 +39,11 @@ let Player = (playerName) => {
                 if (previousAttacks.includes(aiAttack) == false) { // if it didn't just attack that title
                     console.log(previousAttacks.includes(aiAttack))
                     previousAttacks.push(aiAttack);
-                    gameboard.receiveAttack(aiAttack);
+                    enemy.gameboard.receiveAttack(aiAttack);
                     //new
                     setTurn();
                     console.log(turn)
-                    return gameboard.coordinates
+                    return enemy.gameboard.coordinates
                 } else { // if it did then return an error
                     return "can't attack already attacked tile";
                 }
@@ -53,16 +53,16 @@ let Player = (playerName) => {
                 //aiAttack = previousAttacks[previousAttacks.length - 1] + 1
                 // work in progress
                 aiAttack = Math.floor(Math.random() * 65);
-                gameboard.receiveAttack(aiAttack);
-                return gameboard.coordinates
+                enemy.gameboard.receiveAttack(aiAttack);
+                return enemy.gameboard.coordinates
             }
 
         } else {  //if not then all the same
             if (previousAttacks.includes(coordinate) == false) {
                 console.log(previousAttacks.includes(coordinate))
                 previousAttacks.push(coordinate);
-                gameboard.receiveAttack(coordinate);
-                return gameboard.coordinates
+                enemy.gameboard.receiveAttack(coordinate);
+                return enemy.gameboard.coordinates
             } else {
                 return "can't attack already attacked tile";
             }
