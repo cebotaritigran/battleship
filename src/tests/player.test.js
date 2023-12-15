@@ -213,15 +213,15 @@ test('player1 attacks player2 attacks same tile, should give an error message', 
 
 //TEST-8
 //if player 2 is ai, after first attack which will be random if hits it should continue to attack
-test('if player 2 is ai, after first attack which will be random if hits it should continue to attack tiles nearby', () => {
+
+test('if players take turn correctly, should be player1 go first then player2 then player1', () => {
     let tigrits = Player("tigrits");
     let destroyer = Ship(2, [0, 8]);
     tigrits.gameboard.placeShip(destroyer.shipPosition)
     let ai = Player("ai");
     let destroyerPlayerTwo = Ship(2, [17, 18])
     ai.gameboard.placeShip(destroyerPlayerTwo.shipPosition)
-    console.log(ai.attack(0,tigrits))
-    console.log(ai.attack(0,tigrits))
+    
 });
 
 //TEST 9
