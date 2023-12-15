@@ -4,7 +4,7 @@ import { Ship } from "./ship";
 // doesn't have ai yet this is just player and his turn and 
 let Player = (playerName) => {
     let playerN = playerName;
-    let turn = false;
+    let turn = true;
     // to store previous attacks and not let them be repeated
     let previousAttacks = [];
     let gameboard = GameBoard([1, 9]);
@@ -25,11 +25,11 @@ let Player = (playerName) => {
         }
     }
 
-    let attack = (coordinate,enemy) => {
+    let attack = (coordinate, enemy) => {
         // if player is ai then we will have him do some tricks againts us
         let aiAttack;
         //                ****there needs to be a case where it checks if its ai's turn****
-        if (playerN === "ai") {
+        if (playerN === "ai" && turn === false) {
             // if the previous attack missed or if there weren't any attacks at all
             // randomly attack a coordinate
             if (gameboard.hitMiss[gameboard.hitMiss.length - 1] === 2 || gameboard.hitMiss.length === 0) {
@@ -37,7 +37,6 @@ let Player = (playerName) => {
                 aiAttack = Math.floor(Math.random() * 65);
                 //checking if the ai randomly attacked already bombed tile
                 if (previousAttacks.includes(aiAttack) == false) { // if it didn't just attack that title
-                    console.log(previousAttacks.includes(aiAttack))
                     previousAttacks.push(aiAttack);
                     enemy.gameboard.receiveAttack(aiAttack);
                     //new
@@ -49,23 +48,29 @@ let Player = (playerName) => {
                 }
             } else {
                 // if hit then continue on attacking close tiles so that game is more challenging
-                console.log("hit")
+
                 //aiAttack = previousAttacks[previousAttacks.length - 1] + 1
                 // work in progress
                 aiAttack = Math.floor(Math.random() * 65);
                 enemy.gameboard.receiveAttack(aiAttack);
+                setTurn();
                 return enemy.gameboard.coordinates
             }
 
-        } else {  //if not then all the same
+        } else if (playerN !== "ai" && turn === true) {
             if (previousAttacks.includes(coordinate) == false) {
-                console.log(previousAttacks.includes(coordinate))
+
                 previousAttacks.push(coordinate);
                 enemy.gameboard.receiveAttack(coordinate);
+                console.log(checkTurn());
+                setTurn();
                 return enemy.gameboard.coordinates
             } else {
                 return "can't attack already attacked tile";
             }
+        }
+        else {  //if not then all the same
+            return "can't attack its not your turn"
         }
 
     }
