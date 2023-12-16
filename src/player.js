@@ -29,6 +29,7 @@ let Player = (playerName) => {
         // if player is ai then we will have him do some tricks againts us
         let aiAttack;
         //                ****there needs to be a case where it checks if its ai's turn****
+        // check turn, if turn is true then player attacks if false then ai attacks
         if (playerN === "ai" && turn === false) {
             // if the previous attack missed or if there weren't any attacks at all
             // randomly attack a coordinate
@@ -57,9 +58,8 @@ let Player = (playerName) => {
                 return enemy.gameboard.coordinates
             }
 
-        } else if (playerN !== "ai" && turn === true) {
+        } else if (playerN != "ai" && turn == true) {
             if (previousAttacks.includes(coordinate) == false) {
-
                 previousAttacks.push(coordinate);
                 enemy.gameboard.receiveAttack(coordinate);
                 console.log(checkTurn());
