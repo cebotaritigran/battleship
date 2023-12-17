@@ -145,7 +145,7 @@ test('player1 attacks player2 then player2 attacks player1', () => {
     ]);
 
     // checking if attacked coordinated is in previousattacks array
-    console.log(ai.previousAttacks)
+    //console.log(ai.previousAttacks)
     expect(tigrits.attack(21, ai)).toStrictEqual([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -196,7 +196,10 @@ test('player1 attacks player2 attacks same tile, should give an error message', 
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ]);
-    console.log(ai.attack(21, tigrits))
+    //17.12
+    tigrits.setTurn(false);
+    console.log(tigrits.turn)
+
     //checking if attacked coordinated is in previousattacks array
     //console.log(ai.previousAttacks)
     expect(tigrits.attack(21, ai)).toStrictEqual(

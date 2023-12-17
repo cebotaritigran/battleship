@@ -6,7 +6,7 @@ let Ship = (length, position) => {
     let shipLength = length
     let hit = 0
     let shipPosition = position
-    console.log(shipLength)
+
     let isSunk = () => {
         if (hit >= shipLength) {
             return true
@@ -16,7 +16,7 @@ let Ship = (length, position) => {
     }
     let hitNumber = () => {
         hit++;
-        console.log(hit)
+
         return hit;
     }
     return { shipLength, hitNumber, isSunk, shipPosition }
