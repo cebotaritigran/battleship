@@ -26,33 +26,65 @@ let Player = (playerName) => {
         let aiAttack;
         // check turn, if turn is true then player attacks if false then ai attacks
         if (turn === true) {
-            // if the previous attack missed or if there weren't any attacks at all
-            // randomly attack a coordinate
-            if (gameboard.hitMiss[gameboard.hitMiss.length - 1] === 2 || gameboard.hitMiss.length === 0) {
-
-                aiAttack = Math.floor(Math.random() * 65);
-                //checking if the ai randomly attacked already bombed tile
-                if (previousAttacks.includes(aiAttack) == false) { // if it didn't just attack that title
-                    previousAttacks.push(aiAttack);
-                    enemy.gameboard.receiveAttack(aiAttack);
-                    //new
-                    //setTurn();
-
+            if (coordinate) {
+                if (previousAttacks.includes(coordinate) == false) {
+                    previousAttacks.push(coordinate);
+                    enemy.gameboard.receiveAttack(coordinate);
                     return enemy.gameboard.coordinates
-                } else { // if it did then return an error
+                } else {
                     return "can't attack already attacked tile";
                 }
             } else {
-                // if hit then continue on attacking close tiles so that game is more challenging
-
-                //aiAttack = previousAttacks[previousAttacks.length - 1] + 1
-                // work in progress
-                aiAttack = Math.floor(Math.random() * 65);
-                enemy.gameboard.receiveAttack(aiAttack);
-                //setTurn();
-                return enemy.gameboard.coordinates
+                if (gameboard.hitMiss[gameboard.hitMiss.length - 1] === 2 || gameboard.hitMiss.length === 0) {
+                    aiAttack = Math.floor(Math.random() * 65);
+                    //checking if the ai randomly attacked already bombed tile
+                    if (previousAttacks.includes(aiAttack) == false) { // if it didn't just attack that title
+                        previousAttacks.push(aiAttack);
+                        enemy.gameboard.receiveAttack(aiAttack);
+                        return enemy.gameboard.coordinates
+                    } else { // if it did then return an error
+                        return "can't attack already attacked tile";
+                    }
+                } else {
+                    // if hit then continue on attacking close tiles so that game is more challenging
+                    //aiAttack = previousAttacks[previousAttacks.length - 1] + 1
+                    // work in progress
+                    aiAttack = Math.floor(Math.random() * 65);
+                    enemy.gameboard.receiveAttack(aiAttack);
+                    //setTurn();
+                    return enemy.gameboard.coordinates
+                }
             }
+        } else {
+            return "can't attack its not your turn"
         }
+
+        //     // if the previous attack missed or if there weren't any attacks at all
+        //     // randomly attack a coordinate
+        //     if (gameboard.hitMiss[gameboard.hitMiss.length - 1] === 2 || gameboard.hitMiss.length === 0) {
+        //         aiAttack = Math.floor(Math.random() * 65);
+        //         //checking if the ai randomly attacked already bombed tile
+        //         if (previousAttacks.includes(aiAttack) == false) { // if it didn't just attack that title
+        //             previousAttacks.push(aiAttack);
+        //             enemy.gameboard.receiveAttack(aiAttack);
+        //             //new
+        //             //setTurn();
+
+        //             return enemy.gameboard.coordinates
+        //         } else { // if it did then return an error
+        //             return "can't attack already attacked tile";
+        //         }
+        //     } else {
+        //         // if hit then continue on attacking close tiles so that game is more challenging
+
+        //         //aiAttack = previousAttacks[previousAttacks.length - 1] + 1
+        //         // work in progress
+        //         aiAttack = Math.floor(Math.random() * 65);
+        //         enemy.gameboard.receiveAttack(aiAttack);
+        //         //setTurn();
+        //         return enemy.gameboard.coordinates
+        //     }
+        // }
         //  else if (turn == true) {
         //     if (previousAttacks.includes(coordinate) == false) {
         //         previousAttacks.push(coordinate);
@@ -63,12 +95,8 @@ let Player = (playerName) => {
         //     } else {
         //         return "can't attack already attacked tile";
         //     }
-        // }
-        else {  //if not then all the same
-            return "can't attack its not your turn"
-        }
-
     }
+
 
     return {
         turn,
