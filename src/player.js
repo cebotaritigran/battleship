@@ -24,11 +24,8 @@ let Player = (playerName) => {
     let attack = (coordinate, enemy) => {
         // if player is ai then we will have him do some tricks againts us
         let aiAttack;
-        //                ****there needs to be a case where it checks if its ai's turn****
         // check turn, if turn is true then player attacks if false then ai attacks
-
-
-        if (turn === false) {
+        if (turn === true) {
             // if the previous attack missed or if there weren't any attacks at all
             // randomly attack a coordinate
             if (gameboard.hitMiss[gameboard.hitMiss.length - 1] === 2 || gameboard.hitMiss.length === 0) {
@@ -55,18 +52,18 @@ let Player = (playerName) => {
                 //setTurn();
                 return enemy.gameboard.coordinates
             }
-
-        } else if (turn == true) {
-            if (previousAttacks.includes(coordinate) == false) {
-                previousAttacks.push(coordinate);
-                enemy.gameboard.receiveAttack(coordinate);
-
-                //setTurn();
-                return enemy.gameboard.coordinates
-            } else {
-                return "can't attack already attacked tile";
-            }
         }
+        //  else if (turn == true) {
+        //     if (previousAttacks.includes(coordinate) == false) {
+        //         previousAttacks.push(coordinate);
+        //         enemy.gameboard.receiveAttack(coordinate);
+
+        //         //setTurn();
+        //         return enemy.gameboard.coordinates
+        //     } else {
+        //         return "can't attack already attacked tile";
+        //     }
+        // }
         else {  //if not then all the same
             return "can't attack its not your turn"
         }

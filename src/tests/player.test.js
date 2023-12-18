@@ -197,7 +197,7 @@ test('player1 attacks player2 attacks same tile, should give an error message', 
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ]);
     //17.12
-    tigrits.setTurn(false);
+    tigrits.turn = false;
     console.log(tigrits.turn)
 
     //checking if attacked coordinated is in previousattacks array
