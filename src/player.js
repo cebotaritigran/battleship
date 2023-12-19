@@ -17,8 +17,13 @@ let Player = (playerName) => {
     }
 
     // set turn to false when player has played his turn 
-    let setTurn = (turnEntered) => {
-        turn = turn;
+    let setTurn = () => {
+        if (turn == false) {
+            turn = true;
+        } else {
+            turn = false;
+        }
+        return turn;
     }
 
     let attack = (coordinate, enemy) => {
