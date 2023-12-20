@@ -29,12 +29,13 @@ let Player = (playerName) => {
     let attack = (coordinate, enemy) => {
         // if player is ai then we will have him do some tricks againts us
         let aiAttack;
+        let coordinateAttack = Number(coordinate)
         // check turn, if turn is true then player attacks if false then ai attacks
         if (turn === true) {
             if (coordinate) {
-                if (previousAttacks.includes(coordinate) == false) {
-                    previousAttacks.push(coordinate);
-                    enemy.gameboard.receiveAttack(coordinate);
+                if (previousAttacks.includes(coordinateAttack) == false) {
+                    previousAttacks.push(coordinateAttack);
+                    enemy.gameboard.receiveAttack(coordinateAttack);
                     return enemy.gameboard.coordinates
                 } else {
                     return "can't attack already attacked tile";
