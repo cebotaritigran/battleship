@@ -100,6 +100,7 @@ test('test-5 player1 and player2 placeship on the board on different spots', () 
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ]);
 
+
     let ai = Player("ai");
     let destroyerPlayerTwo = Ship(2, [21, 22])
     expect(ai.gameboard.placeShip(destroyerPlayerTwo.shipPosition)).toStrictEqual([
@@ -114,6 +115,7 @@ test('test-5 player1 and player2 placeship on the board on different spots', () 
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ]);
+
 });
 
 
@@ -150,6 +152,8 @@ test('test-6 player1 attacks player2 then player2 attacks player1', () => {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ]);
+    ai.setTurn();
+    expect(ai.attack(attackCoordinate, tigrits)).toStrictEqual("can't attack its not your turn");
 });
 
 
