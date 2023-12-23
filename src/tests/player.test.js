@@ -120,7 +120,7 @@ test('test-5 player1 and player2 placeship on the board on different spots', () 
 
 
 //TEST-6
-test('test-6 player1 attacks player2 then player2 attacks player1', () => {
+test('test-6 player1 places ship player2 attacks 2 times first successful second is error', () => {
     let tigrits = Player("tigrits");
     let destroyer = Ship(2, [0, 1])
     expect(tigrits.gameboard.placeShip(destroyer.shipPosition)).toStrictEqual([
