@@ -120,7 +120,7 @@ test('test-5 player1 and player2 placeship on the board on different spots', () 
 
 
 //TEST-6
-test('test-6 player1 places ship player2 attacks 2 times first successful second is error', () => {
+test('test-6 player1 places ship player2 attacks 3 times to test set turn func, first successful, second is error, third is successful', () => {
     let tigrits = Player("tigrits");
     let destroyer = Ship(2, [0, 1])
     expect(tigrits.gameboard.placeShip(destroyer.shipPosition)).toStrictEqual([
@@ -154,6 +154,19 @@ test('test-6 player1 places ship player2 attacks 2 times first successful second
     ]);
     ai.setTurn();
     expect(ai.attack(attackCoordinate, tigrits)).toStrictEqual("can't attack its not your turn");
+    ai.setTurn();
+    expect(ai.attack(1, tigrits)).toStrictEqual([
+        3, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ]);
 });
 
 
