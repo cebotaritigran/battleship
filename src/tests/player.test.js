@@ -188,7 +188,7 @@ test('test-7 game is played until one player wins the game', () => {
     ]);
 
     let ai = Player("fakeai");
-    let destroyerPlayerTwo = Ship(2, [21, 22])
+    let destroyerPlayerTwo = Ship(2, [0, 1])
     ai.gameboard.placeShip(destroyerPlayerTwo.shipPosition)
     let attackCoordinate = "0";
     expect(ai.attack(attackCoordinate, tigrits)).toStrictEqual([
