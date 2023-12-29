@@ -11,6 +11,15 @@ function createBoard() {
         div.setAttribute("value", i)
         gridContainer[0].appendChild(div);
     }
+    const gridBox = document.getElementsByClassName('gridBox');
+    for (let i = 0; i < 100; i++) {
+        for (let k = 0; k < 100; k++) {
+            if (ships[i] == gridBox[k].getAttribute("value")) {
+                gridBox[k].classList.add('ship');
+            }
+        }
+
+    }
     console.log("hey")
     document.body.style.backgroundColor = "white";
 }

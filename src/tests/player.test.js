@@ -219,4 +219,5 @@ test('test-7 game is played until one player wins the game', () => {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ]);
     console.log(tigrits.gameboard.gameOver());
+    console.log(ai.gameboard.gameOver());
 });
