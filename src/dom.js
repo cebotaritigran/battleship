@@ -7,7 +7,7 @@ function createBoard() {
     const gridContainer = document.getElementsByClassName('gridContainer');
     for (let k = 0; k < 100; k++) {
         for (let i = 0; i < 100; i++) {
-            if (k < 1) {
+            if (k < 1) { // only once prints the grids on container
                 const div = document.createElement('div')
                 div.classList.add('gridBox');
                 div.setAttribute("value", i)
