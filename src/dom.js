@@ -2,7 +2,7 @@ import { GameBoard } from "./gameboard";
 import { Ship } from "./ship";
 import { Player } from "./player";
 
-function createBoard() {
+function createBoardPlayerOne() {
     let ships = [[0, 10, 20, 30], [5, 15], [9, 29], [35, 45], [49, 69], [65, 75], [61, 62, 63], [81, 82, 83]]
 
     const gridContainer = document.getElementsByClassName('gridContainer');
@@ -18,7 +18,7 @@ function createBoard() {
         const gridBox = document.getElementsByClassName('gridBox');
         
         for (let i = 0; i < ships[k].length; i++) {
-            gridBox[ships[0][i]].classList.add('ship')
+            gridBox[ships[k][i]].classList.add('ship')
             //prints the ships on the grids (to be changed)
             
             // console.log(ships[k][i])
@@ -45,4 +45,4 @@ function createBoard() {
     document.body.style.backgroundColor = "white";
 }
 
-export { createBoard }
+export { createBoardPlayerOne }

@@ -1,8 +1,8 @@
 import { GameBoard } from "./gameboard";
 import { Ship } from "./ship";
 import { Player } from "./player";
-import { createBoard } from "./dom";
+import { createBoardPlayerOne } from "./dom";
 document.body.style.backgroundColor = "black";
-createBoard();
+createBoardPlayerOne();
 //game loop where game will be played
 
