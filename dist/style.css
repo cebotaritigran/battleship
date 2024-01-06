@@ -16,11 +16,13 @@
     background-color: rgb(244, 238, 238);
 }
 
-.shipPart{
-    background-color: green;
-}
-.ship{
+
+.ship {
     background-color: rgb(255, 72, 109)
+}
+
+.shipPart {
+    background-color: green;
 }
 
 .gridBox:hover {
