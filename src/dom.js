@@ -24,7 +24,7 @@ function createBoardPlayerOne() {
         const gridBox = document.getElementsByClassName('gridBox');
 
         for (let i = 0; i < ships[0].length; i++) {
-            gridBox[ships[0][i]].classList.add('ship')
+            //gridBox[ships[0][i]].classList.add('ship')
             gridBox[ships[0][i]].classList.add('shipPart')
             //prints the ships on the grids (to be changed)
 
@@ -37,11 +37,22 @@ function createBoardPlayerOne() {
             // gridBox[ships[k][i]].classList.add('shipPart')
         }
     }
+
     const ship = document.getElementsByClassName('gridBox');
+    let rotate = false;
     ship[0].addEventListener("click", () => {
-        ship[1].classList.remove('shipPart')
-        ship[10].classList.add('ship')
+        if (rotate == false) {
+            ship[1].classList.remove('shipPart')
+            ship[10].classList.add('shipPart')
+            rotate = true;
+        } else {
+            ship[1].classList.add('shipPart')
+            ship[10].classList.remove('shipPart')
+            rotate = false;
+        }
+
     })
+
     for (let i = 0; i < ship.length; i++) {
 
     }
