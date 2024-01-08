@@ -40,21 +40,22 @@ function createBoardPlayerOne() {
 
     const ship = document.getElementsByClassName('gridBox');
     let rotate = false;
-    ship[0].addEventListener("click", () => {
-        if (rotate == false) {
-            ship[1].classList.remove('shipPart')
-            ship[10].classList.add('shipPart')
-            rotate = true;
-        } else {
-            ship[1].classList.add('shipPart')
-            ship[10].classList.remove('shipPart')
-            rotate = false;
-        }
-
-    })
+    console.log(ship.length)
 
     for (let i = 0; i < ship.length; i++) {
+        if(ship[i].getAttribute("id") == )
+        ship[i].addEventListener("click", () => {
+            if (rotate == false) {
+                ship[1].classList.remove('shipPart')
+                ship[10].classList.add('shipPart')
+                rotate = true;
+            } else {
+                ship[1].classList.add('shipPart')
+                ship[10].classList.remove('shipPart')
+                rotate = false;
+            }
 
+        })
     }
 
 
