@@ -37,26 +37,30 @@ function createBoardPlayerOne() {
             // gridBox[ships[k][i]].classList.add('shipPart')
         }
     }
-
-    const ship = document.getElementsByClassName('gridBox');
     let rotate = false;
-    console.log(ship.length)
+    gridContainer[0].addEventListener("click", () => {
+        const ship = document.getElementsByClassName('gridBox');
+        
+        console.log(ship.length)
 
-    for (let i = 0; i < ship.length; i++) {
-        if (ships[0][i] == i)
-            ship[i].addEventListener("click", () => {
-                if (rotate == false) {
-                    ship[1].classList.remove('shipPart')
-                    ship[10].classList.add('shipPart')
-                    rotate = true;
-                } else {
-                    ship[1].classList.add('shipPart')
-                    ship[10].classList.remove('shipPart')
-                    rotate = false;
-                }
+        for (let i = 0; i < 100; i++) {
+            if (ships[0][i] == i)
+                ship[i].addEventListener("click", () => {
+                    if (rotate == false) {
+                        ship[1].classList.remove('shipPart')
+                        ship[10].classList.add('shipPart')
+                        rotate = true;
+                    } else {
+                        ship[1].classList.add('shipPart')
+                        ship[10].classList.remove('shipPart')
+                        rotate = false;
+                    }
 
-            })
-    }
+                })
+        }
+    })
+
+
 
 
     // const gridBox = document.getElementsByClassName('gridBox');
