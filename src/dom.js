@@ -37,28 +37,31 @@ function createBoardPlayerOne() {
             // gridBox[ships[k][i]].classList.add('shipPart')
         }
     }
-    let rotate = false;
-    gridContainer[0].addEventListener("click", () => {
-        const ship = document.getElementsByClassName('gridBox');
-        
-        console.log(ship.length)
+    // let rotate = false;
+    // gridContainer[0].addEventListener("click", () => {
+    //     const ship = document.getElementsByClassName('gridBox');
 
-        for (let i = 0; i < 100; i++) {
-            if (ships[0][i] == i)
-                ship[i].addEventListener("click", () => {
-                    if (rotate == false) {
-                        ship[1].classList.remove('shipPart')
-                        ship[10].classList.add('shipPart')
-                        rotate = true;
-                    } else {
-                        ship[1].classList.add('shipPart')
-                        ship[10].classList.remove('shipPart')
-                        rotate = false;
-                    }
+    //     console.log(ship.length)
 
-                })
-        }
-    })
+    //     for (let i = 0; i < 100; i++) {
+    //         if (ships[0][i] == i)
+    //             ship[i].addEventListener("click", () => {
+    //                 let shipPosition = ship[i]
+    //                 if (rotate == false) {
+    //                     shipPosition.classList.remove('shipPart')
+    //                     shipPosition.classList.add('shipPart')
+    //                     rotate = true;
+    //                 } else {
+    //                     ship[i].classList.add('shipPart')
+
+    //                     ship[i - 10].classList.remove('shipPart')
+
+    //                     rotate = false;
+    //                 }
+
+    //             })
+    //     }
+    // })
 
 
 
