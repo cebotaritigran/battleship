@@ -26,55 +26,24 @@ function createBoardPlayerOne() {
         for (let i = 0; i < ships[0].length; i++) {
             //gridBox[ships[0][i]].classList.add('ship')
             gridBox[ships[0][i]].classList.add('shipPart')
-            //prints the ships on the grids (to be changed)
+            let shipPart = document.getElementsByClassName('shipPart');
+            let rotate = false;
+            shipPart[i].addEventListener('click', () => {
+                if(rotate == false){
+                    gridBox[i + 1]. classList.add('shipPart')
+                    gridBox[i + 10].classList.add('shipPart');
+                    rotate = true;
+                } else {
+                    gridBox[i + 1]. classList.remove('shipPart')
+                    gridBox[i + 10].classList.remove('shipPart');
+                    rotate = false;
 
-            // console.log(ships[k][i])
-            // if (ships[k][i] == gridBox[i].getAttribute("value")) {
-            //     console.log(ships[k][i])
+                }
+            })
 
-            //     console.log("working")
-            // }
-            // gridBox[ships[k][i]].classList.add('shipPart')
         }
     }
-    // let rotate = false;
-    // gridContainer[0].addEventListener("click", () => {
-    //     const ship = document.getElementsByClassName('gridBox');
 
-    //     console.log(ship.length)
-
-    //     for (let i = 0; i < 100; i++) {
-    //         if (ships[0][i] == i)
-    //             ship[i].addEventListener("click", () => {
-    //                 let shipPosition = ship[i]
-    //                 if (rotate == false) {
-    //                     shipPosition.classList.remove('shipPart')
-    //                     shipPosition.classList.add('shipPart')
-    //                     rotate = true;
-    //                 } else {
-    //                     ship[i].classList.add('shipPart')
-
-    //                     ship[i - 10].classList.remove('shipPart')
-
-    //                     rotate = false;
-    //                 }
-
-    //             })
-    //     }
-    // })
-
-
-
-
-    // const gridBox = document.getElementsByClassName('gridBox');
-    // for (let i = 0; i < 100; i++) {
-    //     for (let k = 0; k < 100; k++) {
-    //         if (ships[i] == gridBox[k].getAttribute("value")) {
-    //             gridBox[k].classList.add('ship');
-    //         }
-    //     }
-
-    // }
     console.log("hey")
     document.body.style.backgroundColor = "white";
 }
