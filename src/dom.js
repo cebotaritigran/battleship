@@ -23,19 +23,27 @@ function createBoardPlayerOne() {
     for (let k = 0; k < ships.length; k++) {
         const gridBox = document.getElementsByClassName('gridBox');
 
-        for (let i = 0; i < ships[0].length; i++) {
+        for (let i = 0; i < ships[k].length; i++) {
             //gridBox[ships[0][i]].classList.add('ship')
-            gridBox[ships[0][i]].classList.add('shipPart')
+            gridBox[ships[k][i]].classList.add('shipPart')
+            gridBox[ships[k][i]].classList.add('shipPart')
+            gridBox[ships[k][i]].classList.add('shipPart')
+            gridBox[ships[k][i]].classList.add('shipPart')
+            gridBox[ships[k][i]].classList.add('shipPart')
+            gridBox[ships[k][i]].classList.add('shipPart')
+            gridBox[ships[k][i]].classList.add('shipPart')
+            gridBox[ships[k][i]].classList.add('shipPart')
             let shipPart = document.getElementsByClassName('shipPart');
             let rotate = false;
-            shipPart[i].addEventListener('click', () => {
+            shipPart[k].addEventListener('click', () => {
+                console.log("hey")
                 if(rotate == false){
                     gridBox[i + 1]. classList.add('shipPart')
-                    gridBox[i + 10].classList.add('shipPart');
+                    gridBox[i + 10].classList.remove('shipPart');
                     rotate = true;
                 } else {
                     gridBox[i + 1]. classList.remove('shipPart')
-                    gridBox[i + 10].classList.remove('shipPart');
+                    gridBox[i + 10].classList.add('shipPart');
                     rotate = false;
 
                 }
