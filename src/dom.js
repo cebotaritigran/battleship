@@ -19,31 +19,25 @@ function createBoardPlayerOne() {
         div.setAttribute("id", i)
         gridContainer[0].appendChild(div);
     }
-
+    const gridBox = document.getElementsByClassName('gridBox');
     for (let k = 0; k < ships.length; k++) {
-        const gridBox = document.getElementsByClassName('gridBox');
+
 
         for (let i = 0; i < ships[k].length; i++) {
             //gridBox[ships[0][i]].classList.add('ship')
             gridBox[ships[k][i]].classList.add('shipPart')
-            gridBox[ships[k][i]].classList.add('shipPart')
-            gridBox[ships[k][i]].classList.add('shipPart')
-            gridBox[ships[k][i]].classList.add('shipPart')
-            gridBox[ships[k][i]].classList.add('shipPart')
-            gridBox[ships[k][i]].classList.add('shipPart')
-            gridBox[ships[k][i]].classList.add('shipPart')
-            gridBox[ships[k][i]].classList.add('shipPart')
+
             let shipPart = document.getElementsByClassName('shipPart');
             let rotate = false;
-            shipPart[k].addEventListener('click', () => {
+            gridBox[ships[k][i]].addEventListener('click', () => {
                 console.log("hey")
-                if(rotate == false){
-                    gridBox[i + 1]. classList.add('shipPart')
-                    gridBox[i + 10].classList.remove('shipPart');
+                if (rotate == false) {
+                    gridBox[ships[k][i] + 1].classList.add('shipPart')
+                    gridBox[ships[k][i] + 10].classList.remove('shipPart');
                     rotate = true;
                 } else {
-                    gridBox[i + 1]. classList.remove('shipPart')
-                    gridBox[i + 10].classList.add('shipPart');
+                    gridBox[ships[k][i] + 1].classList.remove('shipPart')
+                    gridBox[ships[k][i] + 10].classList.add('shipPart');
                     rotate = false;
 
                 }
