@@ -24,14 +24,14 @@ function createBoardPlayerOne() {
 
 
         for (let i = 0; i < ships[k].length; i++) {
-            //gridBox[ships[0][i]].classList.add('ship')
+           
             gridBox[ships[k][i]].classList.add('shipPart')
-            // don't need this rn
+            
             let shipPart = document.getElementsByClassName('shipPart');
             let rotate = false;
             gridBox[ships[k][i]].addEventListener('click', () => {
                 console.log("hey")
-                if ((ships[k][i] + 1) / 10 < 1) {
+                if ((ships[k][i] + 1) % 10 !== 0) {
                     console.log("should not work")
                     console.log((ships[k][i] + 1) / 10)
                     if (rotate == false) {
