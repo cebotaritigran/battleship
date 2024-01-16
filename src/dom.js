@@ -31,20 +31,25 @@ function createBoardPlayerOne() {
             let rotate = false;
             gridBox[ships[k][i]].addEventListener('click', () => {
                 console.log("hey")
-                if (rotate == false) {
-                    gridBox[ships[k][i] + 1].classList.add('shipPart')
-                    gridBox[ships[k][i] + 10].classList.remove('shipPart');
-                    gridBox[ships[k][i] + 2].classList.add('shipPart');
-                    gridBox[ships[k][i] + 20].classList.remove('shipPart');
-                    rotate = true;
-                } else {
-                    gridBox[ships[k][i] + 1].classList.remove('shipPart')
-                    gridBox[ships[k][i] + 10].classList.add('shipPart');
-                    gridBox[ships[k][i] + 2].classList.remove('shipPart');
-                    gridBox[ships[k][i] + 20].classList.add('shipPart');
-                    rotate = false;
+                if ((ships[k][i] + 1) / 10 < 1) {
+                    console.log("should not work")
+                    console.log((ships[k][i] + 1) / 10)
+                    if (rotate == false) {
+                        gridBox[ships[k][i] + 1].classList.add('shipPart')
+                        gridBox[ships[k][i] + 10].classList.remove('shipPart');
+                        gridBox[ships[k][i] + 2].classList.add('shipPart');
+                        gridBox[ships[k][i] + 20].classList.remove('shipPart');
+                        rotate = true;
+                    } else {
+                        gridBox[ships[k][i] + 1].classList.remove('shipPart')
+                        gridBox[ships[k][i] + 10].classList.add('shipPart');
+                        gridBox[ships[k][i] + 2].classList.remove('shipPart');
+                        gridBox[ships[k][i] + 20].classList.add('shipPart');
+                        rotate = false;
 
+                    }
                 }
+
             })
 
         }
