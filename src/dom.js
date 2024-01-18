@@ -31,9 +31,8 @@ function createBoardPlayerOne() {
             let rotate = false;
             gridBox[ships[k][i]].addEventListener('click', () => {
                 console.log("hey")
-                if (ships[k].length >= 3)
+                if (ships[k].length >= 3) {
                     if ((ships[k][i] + 1) % 10 !== 0) {
-                        console.log("should not work")
                         console.log((ships[k][i] + 1) / 10)
                         if (rotate == false) {
                             gridBox[ships[k][i] + 1].classList.add('shipPart')
@@ -50,7 +49,7 @@ function createBoardPlayerOne() {
 
                         }
                     }
-
+                } else if (ships[k].length >= 2)
             })
 
         }
