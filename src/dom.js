@@ -5,9 +5,9 @@ import { Player } from "./player";
 function createBoardPlayerOne() {
 
     let tigrits = Player("tigrits")
-    let destroyer = Ship(2, [0, 1, 2, 3])
+    let destroyer = Ship(2, [0, 10, 20, 30])
     console.log(destroyer.shipPosition)
-    let ships = [destroyer.shipPosition, [5, 15], [9, 29], [35, 45], [49, 69], [65, 75], [61, 62, 63], [81, 82, 83]]
+    let ships = [destroyer.shipPosition, [4, 14], [9, 29], [35, 45], [49, 69], [65, 75], [61, 62, 63], [81, 82, 83]]
     console.log(ships[0])
 
     const gridContainer = document.getElementsByClassName('gridContainer');
@@ -31,7 +31,7 @@ function createBoardPlayerOne() {
             let rotate = false;
             gridBox[ships[k][i]].addEventListener('click', () => {
                 console.log("hey")
-                if (gridBox[ships[k][i] + 40].classList !== "shipPart" || gridBox[ships[k][i] + 4].classList !== "shipPart") {
+                if (gridBox[ships[k][i] + 10].classList !== "shipPart" || gridBox[ships[k][i] + 1].classList !== "shipPart") {
                     if (ships[k].length == 4) {
                         if ((ships[k][i] + 1) % 10 !== 0) {
                             console.log((ships[k][i] + 1) / 10)
