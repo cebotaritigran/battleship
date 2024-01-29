@@ -25,62 +25,62 @@ function createBoardPlayerOne() {
         for (let i = 0; i < ships[k].length; i++) {
 
             gridBox[ships[k][i]].classList.add('shipPart')
-            gridBox[ships[k][i]].classList.add('ship')
 
             let shipPart = document.getElementsByClassName('shipPart');
             let rotate = false;
+
             gridBox[ships[k][i]].addEventListener('click', () => {
                 console.log("hey")
                 if (ships[k].length == 4) {
                     if ((ships[k][i] + 1) % 10 !== 0) {
-                        console.log((ships[k][i] + 1) / 10)
+
                         if (rotate == false) {
-                            shipPart[ships[k][i] + 1].classList.add('shipPart')
-                            shipPart[ships[k][i] + 10].classList.remove('shipPart');
-                            shipPart[ships[k][i] + 2].classList.add('shipPart');
-                            shipPart[ships[k][i] + 20].classList.remove('shipPart');
-                            shipPart[ships[k][i] + 3].classList.add('shipPart');
-                            shipPart[ships[k][i] + 30].classList.remove('shipPart');
+                            gridBox[ships[k][0] + 1].classList.add('shipPart')
+                            gridBox[ships[k][0] + 10].classList.remove('shipPart');
+                            gridBox[ships[k][0] + 2].classList.add('shipPart');
+                            gridBox[ships[k][0] + 20].classList.remove('shipPart');
+                            gridBox[ships[k][0] + 3].classList.add('shipPart');
+                            gridBox[ships[k][0] + 30].classList.remove('shipPart');
                             rotate = true;
                         } else {
-                            shipPart[ships[k][i] + 1].classList.remove('shipPart')
-                            shipPart[ships[k][i] + 10].classList.add('shipPart');
-                            shipPart[ships[k][i] + 2].classList.remove('shipPart');
-                            shipPart[ships[k][i] + 20].classList.add('shipPart');
-                            shipPart[ships[k][i] + 3].classList.remove('shipPart');
-                            shipPart[ships[k][i] + 30].classList.add('shipPart');
+                            gridBox[ships[k][0] + 1].classList.remove('shipPart')
+                            gridBox[ships[k][0] + 10].classList.add('shipPart');
+                            gridBox[ships[k][0] + 2].classList.remove('shipPart');
+                            gridBox[ships[k][0] + 20].classList.add('shipPart');
+                            gridBox[ships[k][0] + 3].classList.remove('shipPart');
+                            gridBox[ships[k][0] + 30].classList.add('shipPart');
                             rotate = false;
 
                         }
                     }
                 } else if (ships[k].length == 3) {
                     if ((ships[k][i] + 1) % 10 !== 0) {
-                        console.log((ships[k][i] + 1) / 10)
+
                         if (rotate == false) {
-                            gridBox[ships[k][i] + 1].classList.add('shipPart')
-                            gridBox[ships[k][i] + 10].classList.remove('shipPart');
-                            gridBox[ships[k][i] + 2].classList.add('shipPart');
-                            gridBox[ships[k][i] + 20].classList.remove('shipPart');
+                            gridBox[ships[k][0] + 1].classList.add('shipPart')
+                            gridBox[ships[k][0] + 10].classList.remove('shipPart');
+                            gridBox[ships[k][0] + 2].classList.add('shipPart');
+                            gridBox[ships[k][0] + 20].classList.remove('shipPart');
                             rotate = true;
                         } else {
-                            gridBox[ships[k][i] + 1].classList.remove('shipPart')
-                            gridBox[ships[k][i] + 10].classList.add('shipPart');
-                            gridBox[ships[k][i] + 2].classList.remove('shipPart');
-                            gridBox[ships[k][i] + 20].classList.add('shipPart');
+                            gridBox[ships[k][0] + 1].classList.remove('shipPart')
+                            gridBox[ships[k][0] + 10].classList.add('shipPart');
+                            gridBox[ships[k][0] + 2].classList.remove('shipPart');
+                            gridBox[ships[k][0] + 20].classList.add('shipPart');
                             rotate = false;
 
                         }
                     }
                 } else if (ships[k].length == 2) {
                     if ((ships[k][i] + 1) % 10 !== 0) {
-                        console.log((ships[k][i] + 1) / 10)
+
                         if (rotate == false) {
-                            gridBox[ships[k][i] + 1].classList.add('shipPart')
-                            gridBox[ships[k][i] + 10].classList.remove('shipPart');
+                            gridBox[ships[k][0] + 1].classList.add('shipPart')
+                            gridBox[ships[k][0] + 10].classList.remove('shipPart');
                             rotate = true;
                         } else {
-                            gridBox[ships[k][i] + 1].classList.remove('shipPart')
-                            gridBox[ships[k][i] + 10].classList.add('shipPart');
+                            gridBox[ships[k][0] + 1].classList.remove('shipPart')
+                            gridBox[ships[k][0] + 10].classList.add('shipPart');
                             rotate = false;
                         }
                     }
