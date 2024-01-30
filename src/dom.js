@@ -21,7 +21,6 @@ function createBoardPlayerOne() {
     const gridBox = document.getElementsByClassName('gridBox');
     for (let k = 0; k < ships.length; k++) {
 
-
         for (let i = 0; i < ships[k].length; i++) {
 
             gridBox[ships[k][i]].classList.add('shipPart')
