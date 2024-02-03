@@ -32,7 +32,8 @@ function refreshBoard() {
             let shipPart = document.getElementsByClassName('shipPart');
             gridBox[ships[k][i]].addEventListener('click', () => {
                 rotateShips(k, i);
-
+                gridContainer[0].innerHTML = '';
+                createBoardPlayerOne()
             })
             console.log("hey")
             document.body.style.backgroundColor = "white";
@@ -47,10 +48,19 @@ function rotateShips(k, i) {
         if ((ships[k][i] + 1) % 10 !== 0) {
             if (rotate == false) {
                 gridBox[ships[k][0] + 1].classList.add('shipPart');
+                console.log(gridBox[ships[k][0] + 1].getAttribute("value"))
+                console.log(ships[k][1] = gridBox[ships[k][0] + 1].getAttribute("value"))
+                console.log(ships[k][1])
                 gridBox[ships[k][0] + 10].classList.remove('shipPart');
                 gridBox[ships[k][0] + 2].classList.add('shipPart');
+                console.log(gridBox[ships[k][0] + 1].getAttribute("value"))
+                console.log(ships[k][2] = gridBox[ships[k][0] + 2].getAttribute("value"))
+                console.log(ships[k][2])
                 gridBox[ships[k][0] + 20].classList.remove('shipPart');
                 gridBox[ships[k][0] + 3].classList.add('shipPart');
+                console.log(gridBox[ships[k][0] + 1].getAttribute("value"))
+                console.log(ships[k][3] = gridBox[ships[k][0] + 3].getAttribute("value"))
+                console.log(ships[k][3])
                 gridBox[ships[k][0] + 30].classList.remove('shipPart');
 
                 rotate = true;
@@ -58,10 +68,19 @@ function rotateShips(k, i) {
             } else {
                 gridBox[ships[k][0] + 1].classList.remove('shipPart')
                 gridBox[ships[k][0] + 10].classList.add('shipPart');
+                console.log(gridBox[ships[k][0] + 10].getAttribute("value"))
+                console.log(ships[k][1] = gridBox[ships[k][0] + 10].getAttribute("value"))
+                console.log(ships[k][10])
                 gridBox[ships[k][0] + 2].classList.remove('shipPart');
                 gridBox[ships[k][0] + 20].classList.add('shipPart');
+                console.log(gridBox[ships[k][0] + 20].getAttribute("value"))
+                console.log(ships[k][2] = gridBox[ships[k][0] + 20].getAttribute("value"))
+                console.log(ships[k][20])
                 gridBox[ships[k][0] + 3].classList.remove('shipPart');
                 gridBox[ships[k][0] + 30].classList.add('shipPart');
+                console.log(gridBox[ships[k][0] + 30].getAttribute("value"))
+                console.log(ships[k][3] = gridBox[ships[k][0] + 30].getAttribute("value"))
+                console.log(ships[k][30])
 
                 rotate = false;
             }
@@ -71,15 +90,27 @@ function rotateShips(k, i) {
 
             if (rotate == false) {
                 gridBox[ships[k][0] + 1].classList.add('shipPart')
+                console.log(gridBox[ships[k][0] + 1].getAttribute("value"))
+                console.log(ships[k][1] = gridBox[ships[k][0] + 1].getAttribute("value"))
+                console.log(ships[k][1])
                 gridBox[ships[k][0] + 10].classList.remove('shipPart');
                 gridBox[ships[k][0] + 2].classList.add('shipPart');
+                console.log(gridBox[ships[k][0] + 1].getAttribute("value"))
+                console.log(ships[k][2] = gridBox[ships[k][0] + 2].getAttribute("value"))
+                console.log(ships[k][2])
                 gridBox[ships[k][0] + 20].classList.remove('shipPart');
                 rotate = true;
             } else {
                 gridBox[ships[k][0] + 1].classList.remove('shipPart')
                 gridBox[ships[k][0] + 10].classList.add('shipPart');
+                console.log(gridBox[ships[k][0] + 10].getAttribute("value"))
+                console.log(ships[k][1] = gridBox[ships[k][0] + 10].getAttribute("value"))
+                console.log(ships[k][10])
                 gridBox[ships[k][0] + 2].classList.remove('shipPart');
                 gridBox[ships[k][0] + 20].classList.add('shipPart');
+                console.log(gridBox[ships[k][0] + 20].getAttribute("value"))
+                console.log(ships[k][2] = gridBox[ships[k][0] + 20].getAttribute("value"))
+                console.log(ships[k][20])
                 rotate = false;
 
             }
@@ -89,11 +120,17 @@ function rotateShips(k, i) {
 
             if (rotate == false) {
                 gridBox[ships[k][0] + 1].classList.add('shipPart')
+                console.log(gridBox[ships[k][0] + 1].getAttribute("value"))
+                console.log(ships[k][1] = gridBox[ships[k][0] + 1].getAttribute("value"))
+                console.log(ships[k][1])
                 gridBox[ships[k][0] + 10].classList.remove('shipPart');
                 rotate = true;
             } else {
                 gridBox[ships[k][0] + 1].classList.remove('shipPart')
                 gridBox[ships[k][0] + 10].classList.add('shipPart');
+                console.log(gridBox[ships[k][0] + 10].getAttribute("value"))
+                console.log(ships[k][1] = gridBox[ships[k][0] + 10].getAttribute("value"))
+                console.log(ships[k][10])
                 rotate = false;
             }
         }
