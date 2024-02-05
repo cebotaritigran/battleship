@@ -50,7 +50,7 @@ function refreshBoard() {
     }
 }
 
-
+// functionn to rotate ships, get which ship and which part is clicked and then rotates the whole ship
 function rotateShips(k, i) {
     console.log("hey")
     // checking each ships length
