@@ -59,50 +59,55 @@ function rotateShips(k, i) {
         // because of the last tile on the row is always 9, 19, 29, I added +1 to them and ask for remainder if it is 0 then we do not rotate
         // the ship and it just doesn't do anything but if there is a remainder other than 0 then we rotate the ship
         if ((ships[k][i] + 1) % 10 !== 0) {
+            console.log(ships.includes(ships[k][ships[k].length - 1]))
+            let length = Number(ships[k][ships[k].length - 1])
+            console.log(length + 1)
+            console.log(ships[k + 1].includes(Number(length + 1)))
             if (rotate == false) {
                 // making ship rotate horizontal
+                // adding new tiles to the ships array as new ship position
                 gridBox[ships[k][0] + 1].classList.add('shipPart');
-                console.log(gridBox[ships[k][0] + 1].getAttribute("value"))
-                console.log(ships[k][1] = gridBox[ships[k][0] + 1].getAttribute("value"))
-                console.log(ships[k][1])
+
+                ships[k][1] = gridBox[ships[k][0] + 1].getAttribute("value")
+
                 gridBox[ships[k][0] + 10].classList.remove('shipPart');
                 gridBox[ships[k][0] + 2].classList.add('shipPart');
-                console.log(gridBox[ships[k][0] + 1].getAttribute("value"))
-                console.log(ships[k][2] = gridBox[ships[k][0] + 2].getAttribute("value"))
-                console.log(ships[k][2])
+
+                ships[k][2] = gridBox[ships[k][0] + 2].getAttribute("value")
+
                 gridBox[ships[k][0] + 20].classList.remove('shipPart');
                 gridBox[ships[k][0] + 3].classList.add('shipPart');
-                console.log(gridBox[ships[k][0] + 1].getAttribute("value"))
-                console.log(ships[k][3] = gridBox[ships[k][0] + 3].getAttribute("value"))
-                console.log(ships[k][3])
+
+                ships[k][3] = gridBox[ships[k][0] + 3].getAttribute("value")
+
                 gridBox[ships[k][0] + 30].classList.remove('shipPart');
 
                 rotate = true;
 
             } else {
-                 // making ship rotate verticale
+                // making ship rotate verticale
                 gridBox[ships[k][0] + 1].classList.remove('shipPart')
                 gridBox[ships[k][0] + 10].classList.add('shipPart');
-                console.log(gridBox[ships[k][0] + 10].getAttribute("value"))
-                console.log(ships[k][1] = gridBox[ships[k][0] + 10].getAttribute("value"))
-                console.log(ships[k][10])
+
+                ships[k][1] = gridBox[ships[k][0] + 10].getAttribute("value")
+
                 gridBox[ships[k][0] + 2].classList.remove('shipPart');
                 gridBox[ships[k][0] + 20].classList.add('shipPart');
-                console.log(gridBox[ships[k][0] + 20].getAttribute("value"))
-                console.log(ships[k][2] = gridBox[ships[k][0] + 20].getAttribute("value"))
-                console.log(ships[k][20])
+
+                ships[k][2] = gridBox[ships[k][0] + 20].getAttribute("value")
+
                 gridBox[ships[k][0] + 3].classList.remove('shipPart');
                 gridBox[ships[k][0] + 30].classList.add('shipPart');
-                console.log(gridBox[ships[k][0] + 30].getAttribute("value"))
-                console.log(ships[k][3] = gridBox[ships[k][0] + 30].getAttribute("value"))
-                console.log(ships[k][30])
+
+                ships[k][3] = gridBox[ships[k][0] + 30].getAttribute("value")
+
 
                 rotate = false;
             }
         }
     } else if (ships[k].length == 3) {
         if ((ships[k][i] + 1) % 10 !== 0) {
-           
+
             if (rotate == false) {
                 gridBox[ships[k][0] + 1].classList.add('shipPart')
                 console.log(gridBox[ships[k][0] + 1].getAttribute("value"))
@@ -131,7 +136,7 @@ function rotateShips(k, i) {
             }
         }
     } else if (ships[k].length == 2) {
-        console.log(ships[k][i] + 1 % 10 !== 0) 
+        console.log(ships[k][i] + 1 % 10 !== 0)
         if ((ships[k][i] + 1) % 10 !== 0) {
             console.log(ships[k][i] + 1)
             if (rotate == false) {
