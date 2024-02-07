@@ -156,6 +156,9 @@ function rotateShips(k, i) {
             }
         }
     }
+    let length = Number(ships[k][ships[k].length - 1])
+    console.log(length + 1)
+    console.log(ships[k + 1].includes(Number(length + 1)))
 }
 
 export { createBoardPlayerOne }
