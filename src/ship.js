@@ -1,12 +1,12 @@
-function sum(a, b) {
-    return a + b;
-}
+
 
 class Ship {
-    constructor(length, numberOfHits, sunk) {
+    constructor(length, shipName, numberOfHits, sunk) {
         this.length = length;
+        this.shipName = shipName
         this.numberOfHits = 0;
         this.sunk = false;
+
     }
 
     hit() {
@@ -23,8 +23,11 @@ class Ship {
             return false;
         }
     }
+    showHits() {
+        return this.numberOfHits;
+    }
 }
 
 let destroyer = new Ship(2)
 
-module.exports = destroyer;
+module.exports = { destroyer, Ship };
