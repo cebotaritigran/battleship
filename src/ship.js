@@ -11,7 +11,6 @@ class Ship {
 
     hit() {
         this.numberOfHits += 1;
-        console.log(this.numberOfHits)
         return this.numberOfHits;
     }
     isSunk() {

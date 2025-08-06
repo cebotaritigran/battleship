@@ -1,4 +1,5 @@
 const { destroyer, Ship } = require('../src/ship');
+const { checkObject } = require('../src/object');
 class Gameboard {
     constructor(missedAttacks, coordinates) {
         this.missedAttacks = missedAttacks;
@@ -23,13 +24,20 @@ class Gameboard {
 
         //     }
         // }
-        if (!this.coordinates.includes(Object, 0)) {
-            this.allShipsSunk = true;
-            // } else {
-            //     this.allShipsSunk = true;
-            // }
+        for (let i = 0; i < this.coordinates.length; i++) {
+            // if there is ship not sink
+            if (this.coordinates[i].some(checkObject)) {
+
+                this.allShipsSunk = false;
+                return this.allShipsSunk;
+            } else if (this.coordinates[i].some(checkObject) == false) {
+                this.allShipsSunk = true;
+
+            }
+
         }
         console.log(this.coordinates)
+        console.log(this.allShipsSunk)
         return this.allShipsSunk;
     }
 
@@ -65,4 +73,4 @@ class Gameboard {
 
 let game = new Gameboard(0)
 
-module.exports = { game };
+module.exports = { Gameboard };
