@@ -1,0 +1,17 @@
+body {
+  background-color: rebeccapurple;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 2px;
+}
+
+.grid-box {
+  width: 100%;
+  height: 100%;
+  background-color: lightgray;
+  border: 1px solid black;
+}
