@@ -4,7 +4,7 @@ class Player {
     constructor(gmaeBoard, playerName, turn) {
         this.gmaeBoard = gmaeBoard;
         this.playerName = playerName
-        this.turn;
+        this.turn = turn;
     }
     checkGameBoard(){
         return this.gmaeBoard.coordinates;
