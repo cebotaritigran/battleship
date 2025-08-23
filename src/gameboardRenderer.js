@@ -9,11 +9,11 @@ function putShipsOnBoard(board, gameBoard, gameController) {
             let gridBox = document.createElement("div");
             gridBox.classList.add("grid-box")
             board.appendChild(gridBox)
-            gridBox.addEventListener("click", gameController.turn)
-
+            gridBox.addEventListener("click", () => { gameController.turn(gridBox) })
+            gridBox.setAttribute("coordinatesY", i)
+            gridBox.setAttribute("coordinatesX", k)
             if (gameBoard.coordinates[i][k] != undefined || gameBoard.coordinates[i][k] != null) {
-                if (gameBoard.coordinates[i].some(checkObject)) {
-
+                if (gameBoard.coordinates[i][k] != 0) {
                     gridBox.classList.add("ship-box")
                 }
             }

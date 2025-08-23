@@ -5,16 +5,16 @@ class Gameboard {
         this.missedAttacks = missedAttacks;
         this.allShipsSunk = false;
         this.coordinates = [
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            []
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         ]
     }
 
@@ -36,8 +36,7 @@ class Gameboard {
             }
 
         }
-        console.log(this.coordinates)
-        console.log(this.allShipsSunk)
+
         return this.allShipsSunk;
     }
 
@@ -59,11 +58,17 @@ class Gameboard {
 
     receiveAttack(coordinatesY, coordinatesX) {
 
-        if (this.coordinates[coordinatesY][coordinatesX] == undefined) {
-            this.coordinates[coordinatesY][coordinatesX] = 1
-        } else if (this.coordinates[coordinatesY][coordinatesX]) {
+        // if (this.coordinates[coordinatesY][coordinatesX] == undefined || this.coordinates[coordinatesY][coordinatesX] == null) {
+        //     this.coordinates[coordinatesY][coordinatesX] = 1
+        // }
+        console.log(coordinatesY, coordinatesX)
+        if (this.coordinates[coordinatesY][coordinatesX] != 0 && this.coordinates[coordinatesY][coordinatesX] != 1 && this.coordinates[coordinatesY][coordinatesX] != 2) {
             this.coordinates[coordinatesY][coordinatesX].hit();
             this.coordinates[coordinatesY][coordinatesX] = 2
+            return true;
+        } else {
+            this.coordinates[coordinatesY][coordinatesX] = 1
+            return false
         }
         return this.coordinates;
     }
