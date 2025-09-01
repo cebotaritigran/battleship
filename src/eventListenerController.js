@@ -5,20 +5,18 @@ const { checkObject } = require('../src/object');
 const { putShipsOnBoard } = require('../src/gameboardRenderer');
 import { gameController } from "../src/script";
 
-export function removeEventListener(board, remove) {
+export function detachListeners(cells, remove) {
     if (remove == true) {
         for (let i = 0; i < 100; i++) {
 
-            board[i].removeEventListener("click", gameController.turn)
+            cells[i].removeEventListener("click", gameController.turn)
         }
     } else {
         for (let i = 0; i < 100; i++) {
 
-            board[i].addEventListener("click", gameController.turn)
+            cells[i].addEventListener("click", gameController.turn)
         }
     }
-
-
 
 }
 

@@ -1,9 +1,11 @@
 
 
 class Ship {
-    constructor(length, shipName, numberOfHits, sunk) {
+    constructor(length, shipName, shipCoordinate, shipDirection, numberOfHits, sunk) {
         this.length = length;
         this.shipName = shipName
+        this.shipCoordinate = shipCoordinate
+        this.shipDirection = shipDirection
         this.numberOfHits = 0;
         this.sunk = false;
 

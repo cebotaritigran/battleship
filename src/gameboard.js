@@ -40,14 +40,14 @@ class Gameboard {
         return this.allShipsSunk;
     }
 
-    placeShip(coordinatesY, coordinatesX, length, line, ship) {
+    placeShip(coordinatesY, coordinatesX, length, lineDirection, ship) {
 
         this.coordinates[coordinatesY][coordinatesX] = ship
-        if (line == "verticle") {
+        if (lineDirection == "verticle") {
             for (let i = 0; i < length; i++) {
                 this.coordinates[coordinatesY + i][coordinatesX] = ship
             }
-        } else if (line == "horizontal") {
+        } else if (lineDirection == "horizontal") {
             for (let i = 0; i < length; i++) {
                 this.coordinates[coordinatesY][coordinatesX + i] = ship
             }
@@ -64,7 +64,7 @@ class Gameboard {
         console.log(coordinatesY, coordinatesX)
         if (this.coordinates[coordinatesY][coordinatesX] != 0 && this.coordinates[coordinatesY][coordinatesX] != 1 && this.coordinates[coordinatesY][coordinatesX] != 2) {
             this.coordinates[coordinatesY][coordinatesX].hit();
-            this.coordinates[coordinatesY][coordinatesX] = 2
+            //this.coordinates[coordinatesY][coordinatesX] = 2
             return true;
         } else {
             this.coordinates[coordinatesY][coordinatesX] = 1
