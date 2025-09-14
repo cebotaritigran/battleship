@@ -43,9 +43,16 @@ class Gameboard {
     placeShip(coordinatesY, coordinatesX, length, lineDirection, ship) {
 
         this.coordinates[coordinatesY][coordinatesX] = ship
-        if (lineDirection == "verticle") {
+        if (lineDirection == "vertical") {
             for (let i = 0; i < length; i++) {
+
+
+                if (coordinatesY + length > this.coordinates.length) {
+                    throw new Error("Ship goes out of bounds vertically" + coordinatesY + length);
+                }
                 this.coordinates[coordinatesY + i][coordinatesX] = ship
+
+
             }
         } else if (lineDirection == "horizontal") {
             for (let i = 0; i < length; i++) {
