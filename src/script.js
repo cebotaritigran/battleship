@@ -4,6 +4,7 @@ const { Ship } = require('../src/ship');
 const { Player } = require('../src/player');
 const { checkObject } = require('../src/object');
 const { putShipsOnBoard } = require('../src/gameboardRenderer');
+
 import { detachListeners } from "../src/eventListenerController";
 
 let gridContainer = document.querySelectorAll(".grid-container")
@@ -394,8 +395,12 @@ function placeRandomShip(gameBoard) {
         }
     }
 }
-placeRandomShip(gameBoardPlayerOne)
-placeRandomShip(gameBoardPlayerTwo)
+
+// placeRandomShip(gameBoardPlayerOne)
+// placeRandomShip(gameBoardPlayerTwo)
+
+putShipsOnBoard(gridContainer[0], gameBoardPlayerOne, gameController);
+putShipsOnBoard(gridContainer[1], gameBoardPlayerTwo, gameController);
 
 // function placeRandomShip() {
 //     let ships = [
@@ -516,12 +521,11 @@ placeRandomShip(gameBoardPlayerTwo)
 
 
 
+
 // placeRandomShip();
 
-putShipsOnBoard(gridContainer[0], gameBoardPlayerOne, gameController);
-putShipsOnBoard(gridContainer[1], gameBoardPlayerTwo, gameController);
 
 
-gameController.resetGame();
+
 
 
