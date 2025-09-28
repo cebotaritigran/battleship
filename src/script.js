@@ -7,7 +7,42 @@ const { putShipsOnBoard } = require('../src/gameboardRenderer');
 
 import { detachListeners } from "../src/eventListenerController";
 
+let vsAiActive = false;
+
+let playerContainer = document.querySelectorAll(".player-container")
+
 let gridContainer = document.querySelectorAll(".grid-container")
+
+let randomise = document.querySelectorAll(".randomise")
+
+let playerVsAiOption = document.querySelector(".player-ai")
+
+let playerVsPlayerOption = document.querySelector(".player-player")
+
+let turnShower = document.querySelectorAll(".turn-shower")
+
+let playButton = document.querySelector(".play")
+
+
+
+
+playerVsAiOption.addEventListener("click", () => {
+    randomiseSecondBoard()
+    let ships = gridContainer[1].children
+    vsAiActive = true;
+    for (let ship of ships) {
+        ship.classList.remove("ship-box")
+    }
+})
+
+playerVsPlayerOption.addEventListener("click", () => {
+
+})
+
+
+
+
+turnShower[1].classList.toggle("turn-shower")
 
 export const gameController = (() => {
     let playerTurn = 0;
@@ -35,8 +70,12 @@ export const gameController = (() => {
     }
 
     const turn = (gridBox) => {
+
         // PLAYER 1 TURN
         if (playerTurn == 0) {
+            // this is how we show whose turn it is
+            turnShower[1].classList.toggle("turn-shower")
+            turnShower[0].classList.toggle("turn-shower")
 
             playerOne.turn = false;
             playerTwo.turn = true;
@@ -178,143 +217,282 @@ export const gameController = (() => {
             checkEndGame(gameBoardPlayerTwo.checkShipsSunk());
             // PLAYER 2 TURN
         } else if (playerTurn == 1) {
-            playerOne.turn = true;
-            playerTwo.turn = false;
+            if (vsAiActive) {
+                turnShower[0].classList.toggle("turn-shower")
+                turnShower[1].classList.toggle("turn-shower")
+                let gridBoxCoordinatesY = Math.floor(Math.random() * 11)
+                let gridBoxCoordinatesX = Math.floor(Math.random() * 11)
+                playerOne.turn = true;
+                playerTwo.turn = false;
+                if (gameBoardPlayerOne.receiveAttack(gridBoxCoordinatesY, gridBoxCoordinatesX) == true) {
+                    // we add a ship hit class for UI
+                    gridBox.classList.add("ship-hit")
+                    // here we need enemys board and elemets to change the surrounding grid boxes of the sunk ship
+                    // we first get all the child notes and then if its horizontal we just need to bottom + 1 of the ship and
+                    // top - 1 that way we get all the surrounding boxes including cross hits
+                    let gridBoxes = gridContainer[0].childNodes;
+                    // we need ship.length to determine the bottom of the ship and if its sunk which box to mark as "miss"
+                    let shipLength = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length;
+                    // original ship coordinates to determine which boxes to mark as "miss"
+                    let shipCoordinateY = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipCoordinate[0]
+                    let shipCoordinateX = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipCoordinate[1]
+                    
 
-            //getting the current gridbox's coordinates
-            let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesY");
-            let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesX");
+                    // if ship sunk mark top and bottom of the ship as "miss"
+                    if (gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].isSunk() &&
+                        gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipDirection == "vertical" &&
+                        gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length != 1) {
+                        gridBoxes.forEach((gridBox) => {
 
 
-            // if the clicked grid box is a "ship"
-            //and receiveAttack returns true the ship gets a hit
-            if (gameBoardPlayerOne.receiveAttack(gridBoxCoordinatesY, gridBoxCoordinatesX) == true) {
-                // we add a ship hit class for UI
-                gridBox.classList.add("ship-hit")
-                // here we need enemys board and elemets to change the surrounding grid boxes of the sunk ship
-                // we first get all the child notes and then if its horizontal we just need to bottom + 1 of the ship and
-                // top - 1 that way we get all the surrounding boxes including cross hits
-                let gridBoxes = gridContainer[0].childNodes;
-                // we need ship.length to determine the bottom of the ship and if its sunk which box to mark as "miss"
-                let shipLength = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length;
-                // original ship coordinates to determine which boxes to mark as "miss"
-                let shipCoordinateY = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipCoordinate[0]
-                let shipCoordinateX = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipCoordinate[1]
+                            let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesy");
+                            let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesx");
 
 
-                // if ship sunk mark top and bottom of the ship as "miss"
-                if (gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].isSunk() &&
-                    gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipDirection == "vertical" &&
-                    gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length != 1) {
+                            //TOP
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) - 1 && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+
+                            // BOTTOM
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY + shipLength) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+
+
+                        })
+                        // if ship sunk mark right and left of the ship as "miss"
+                    } else if (gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].isSunk() &&
+                        gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipDirection == "horizontal" &&
+                        gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length != 1) {
+                        gridBoxes.forEach((gridBox) => {
+
+
+                            let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesy");
+                            let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesx");
+
+
+                            // LEFT
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX) - 1) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+                            // right
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX + shipLength)) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+
+
+                        })
+                    }
+                    if (gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].isSunk() &&
+                        gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length == 1) {
+                        gridBoxes.forEach((gridBox) => {
+
+
+                            let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesy");
+                            let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesx");
+
+
+                            // LEFT
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX) - 1) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+                            // right
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX) + 1) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+
+
+                            //TOP
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) - 1 && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+                            // BOTTOM
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) + 1 && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+
+
+                        })
+
+                    }
+                    // cross hits, if it hits the ship all the cross surrounding boxes are marked as "miss"
                     gridBoxes.forEach((gridBox) => {
-
-
-                        let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesy");
-                        let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesx");
-
-
-                        //TOP
-                        if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) - 1 && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
+                        let coordinatesYY = gridBox.getAttribute("coordinatesy");
+                        let coordinatesXX = gridBox.getAttribute("coordinatesx");
+                        if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) + 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) + 1) {
                             gridBox.classList.add("ship-miss")
-
                         }
-
-                        // BOTTOM
-                        if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY + shipLength) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
+                        if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) - 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) - 1) {
                             gridBox.classList.add("ship-miss")
-
                         }
-
-
+                        if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) - 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) + 1) {
+                            gridBox.classList.add("ship-miss")
+                        }
+                        if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) + 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) - 1) {
+                            gridBox.classList.add("ship-miss")
+                        }
                     })
-                    // if ship sunk mark right and left of the ship as "miss"
-                } else if (gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].isSunk() &&
-                    gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipDirection == "horizontal" &&
-                    gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length != 1) {
-                    gridBoxes.forEach((gridBox) => {
 
-
-                        let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesy");
-                        let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesx");
-
-
-                        // LEFT
-                        if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX) - 1) {
-                            gridBox.classList.add("ship-miss")
-
-                        }
-                        // right
-                        if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX + shipLength)) {
-                            gridBox.classList.add("ship-miss")
-
-                        }
-
-
-                    })
+                    gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX] = 2;
+                } else {
+                    gridBox.classList.add("ship-miss")
                 }
-                if (gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].isSunk() &&
-                    gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length == 1) {
-                    gridBoxes.forEach((gridBox) => {
-
-
-                        let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesy");
-                        let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesx");
-
-
-                        // LEFT
-                        if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX) - 1) {
-                            gridBox.classList.add("ship-miss")
-
-                        }
-                        // right
-                        if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX) + 1) {
-                            gridBox.classList.add("ship-miss")
-
-                        }
-
-
-                        //TOP
-                        if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) - 1 && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
-                            gridBox.classList.add("ship-miss")
-
-                        }
-                        // BOTTOM
-                        if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) + 1 && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
-                            gridBox.classList.add("ship-miss")
-
-                        }
-
-
-                    })
-
-                }
-                // cross hits, if it hits the ship all the cross surrounding boxes are marked as "miss"
-                gridBoxes.forEach((gridBox) => {
-                    let coordinatesYY = gridBox.getAttribute("coordinatesy");
-                    let coordinatesXX = gridBox.getAttribute("coordinatesx");
-                    if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) + 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) + 1) {
-                        gridBox.classList.add("ship-miss")
-                    }
-                    if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) - 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) - 1) {
-                        gridBox.classList.add("ship-miss")
-                    }
-                    if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) - 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) + 1) {
-                        gridBox.classList.add("ship-miss")
-                    }
-                    if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) + 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) - 1) {
-                        gridBox.classList.add("ship-miss")
-                    }
-                })
-
-                gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX] = 2;
+                console.log("player 2 played")
+                playerTurn--;
+                checkEndGame(gameBoardPlayerOne.checkShipsSunk());
             } else {
-                gridBox.classList.add("ship-miss")
+                // this is how we show whose turn it is
+                turnShower[0].classList.toggle("turn-shower")
+                turnShower[1].classList.toggle("turn-shower")
+
+                playerOne.turn = true;
+                playerTwo.turn = false;
+
+                //getting the current gridbox's coordinates
+                let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesY");
+                let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesX");
+
+
+                // if the clicked grid box is a "ship"
+                //and receiveAttack returns true the ship gets a hit
+                if (gameBoardPlayerOne.receiveAttack(gridBoxCoordinatesY, gridBoxCoordinatesX) == true) {
+                    // we add a ship hit class for UI
+                    gridBox.classList.add("ship-hit")
+                    // here we need enemys board and elemets to change the surrounding grid boxes of the sunk ship
+                    // we first get all the child notes and then if its horizontal we just need to bottom + 1 of the ship and
+                    // top - 1 that way we get all the surrounding boxes including cross hits
+                    let gridBoxes = gridContainer[0].childNodes;
+                    // we need ship.length to determine the bottom of the ship and if its sunk which box to mark as "miss"
+                    let shipLength = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length;
+                    // original ship coordinates to determine which boxes to mark as "miss"
+                    let shipCoordinateY = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipCoordinate[0]
+                    let shipCoordinateX = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipCoordinate[1]
+
+
+                    // if ship sunk mark top and bottom of the ship as "miss"
+                    if (gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].isSunk() &&
+                        gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipDirection == "vertical" &&
+                        gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length != 1) {
+                        gridBoxes.forEach((gridBox) => {
+
+
+                            let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesy");
+                            let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesx");
+
+
+                            //TOP
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) - 1 && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+
+                            // BOTTOM
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY + shipLength) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+
+
+                        })
+                        // if ship sunk mark right and left of the ship as "miss"
+                    } else if (gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].isSunk() &&
+                        gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipDirection == "horizontal" &&
+                        gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length != 1) {
+                        gridBoxes.forEach((gridBox) => {
+
+
+                            let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesy");
+                            let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesx");
+
+
+                            // LEFT
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX) - 1) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+                            // right
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX + shipLength)) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+
+
+                        })
+                    }
+                    if (gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].isSunk() &&
+                        gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].length == 1) {
+                        gridBoxes.forEach((gridBox) => {
+
+
+                            let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesy");
+                            let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesx");
+
+
+                            // LEFT
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX) - 1) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+                            // right
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) && Number(gridBoxCoordinatesX) == Number(shipCoordinateX) + 1) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+
+
+                            //TOP
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) - 1 && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+                            // BOTTOM
+                            if (Number(gridBoxCoordinatesY) == Number(shipCoordinateY) + 1 && Number(gridBoxCoordinatesX) == Number(shipCoordinateX)) {
+                                gridBox.classList.add("ship-miss")
+
+                            }
+
+
+                        })
+
+                    }
+                    // cross hits, if it hits the ship all the cross surrounding boxes are marked as "miss"
+                    gridBoxes.forEach((gridBox) => {
+                        let coordinatesYY = gridBox.getAttribute("coordinatesy");
+                        let coordinatesXX = gridBox.getAttribute("coordinatesx");
+                        if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) + 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) + 1) {
+                            gridBox.classList.add("ship-miss")
+                        }
+                        if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) - 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) - 1) {
+                            gridBox.classList.add("ship-miss")
+                        }
+                        if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) - 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) + 1) {
+                            gridBox.classList.add("ship-miss")
+                        }
+                        if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) + 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) - 1) {
+                            gridBox.classList.add("ship-miss")
+                        }
+                    })
+
+                    gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX] = 2;
+                } else {
+                    gridBox.classList.add("ship-miss")
+                }
+
+
+                console.log("player 2 played")
+                playerTurn--;
+                checkEndGame(gameBoardPlayerOne.checkShipsSunk());
             }
 
-
-            console.log("player 2 played")
-            playerTurn--;
-            checkEndGame(gameBoardPlayerOne.checkShipsSunk());
         }
 
     }
@@ -396,11 +574,46 @@ function placeRandomShip(gameBoard) {
     }
 }
 
-// placeRandomShip(gameBoardPlayerOne)
-// placeRandomShip(gameBoardPlayerTwo)
+function randomiseFirstBoard() {
+
+    gridContainer[0].innerHTML = "";
+    gameBoardPlayerOne.cleanBoard();
+    placeRandomShip(gameBoardPlayerOne)
+    putShipsOnBoard(gridContainer[0], gameBoardPlayerOne, gameController);
+}
+
+function randomiseSecondBoard() {
+
+    gridContainer[1].innerHTML = "";
+    gameBoardPlayerTwo.cleanBoard();
+    placeRandomShip(gameBoardPlayerTwo)
+    putShipsOnBoard(gridContainer[1], gameBoardPlayerTwo, gameController);
+}
+
+// PLACES SHIPS RANDOMLY ON BOTH BOARDS
+randomise[0].addEventListener("click", randomiseFirstBoard)
+
+randomise[1].addEventListener("click", randomiseSecondBoard)
+
+placeRandomShip(gameBoardPlayerOne)
+placeRandomShip(gameBoardPlayerTwo)
 
 putShipsOnBoard(gridContainer[0], gameBoardPlayerOne, gameController);
 putShipsOnBoard(gridContainer[1], gameBoardPlayerTwo, gameController);
+
+
+
+
+
+
+
+// after we lock positions remove randomise option
+playButton.addEventListener("click", () => {
+    playerContainer[0].removeChild(randomise[0])
+    playerContainer[1].removeChild(randomise[1])
+})
+
+
 
 // function placeRandomShip() {
 //     let ships = [
@@ -523,9 +736,3 @@ putShipsOnBoard(gridContainer[1], gameBoardPlayerTwo, gameController);
 
 
 // placeRandomShip();
-
-
-
-
-
-
