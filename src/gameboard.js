@@ -64,7 +64,7 @@ class Gameboard {
     }
 
     receiveAttack(coordinatesY, coordinatesX) {
-
+        console.log(coordinatesY, coordinatesX)
         // if (this.coordinates[coordinatesY][coordinatesX] == undefined || this.coordinates[coordinatesY][coordinatesX] == null) {
         //     this.coordinates[coordinatesY][coordinatesX] = 1
         // }

@@ -98,7 +98,11 @@ body {
 .grid-box {
   border: 1px solid rgb(201, 221, 255);
   flex: 1 1 9%;
+  cursor: pointer;
 }
+
+
+
 
 .grid-box:hover {
   background-color: rgb(186, 190, 196);
@@ -110,10 +114,12 @@ body {
 
 .ship-hit {
   background-color: red;
+  pointer-events: none;
 }
 
 .ship-miss {
   background-color: rgb(107, 204, 82);
+  pointer-events: none;
 }
 
 .randomise {
@@ -122,7 +128,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+}
 
+.randomise:hover{
+  color: rgb(99, 15, 195);
+  user-select: none;
+  
 }
 
 .reset-button {
@@ -157,12 +169,15 @@ body {
 
 .player-player,
 .player-ai,
-.play {
+.reset {
   cursor: pointer;
   color: rgb(92, 92, 92);
+  user-select: none;
 }
-
-.play{
-  font-size: 24px;
-  font-weight: bolder;
+.player-player:hover,
+.player-ai:hover,
+.reset:hover {
+  cursor: pointer;
+  color: rgb(247, 35, 35);
+  user-select: none;
 }

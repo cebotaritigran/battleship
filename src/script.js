@@ -21,22 +21,67 @@ let playerVsPlayerOption = document.querySelector(".player-player")
 
 let turnShower = document.querySelectorAll(".turn-shower")
 
-let playButton = document.querySelector(".play")
+let reset = document.querySelector(".reset")
+
+let options = document.querySelector(".options")
+
+let modeChosen = false;
 
 
+
+reset.addEventListener("click", () => {
+    window.location.reload(true);
+})
+
+let lockPositionPlayerOne = document.createElement("div")
+let lockPositionPlayerTwo = document.createElement("div")
+lockPositionPlayerOne.textContent = "Lock Position for Player 1"
+lockPositionPlayerTwo.textContent = "Lock Position for Player 2"
+lockPositionPlayerOne.classList.add("lock-player-one")
+lockPositionPlayerTwo.classList.add("lock-player-two")
 
 
 playerVsAiOption.addEventListener("click", () => {
-    randomiseSecondBoard()
-    let ships = gridContainer[1].children
-    vsAiActive = true;
+    if (!modeChosen) {
+        randomiseSecondBoard()
+        let ships = gridContainer[1].children
+        vsAiActive = true;
+        for (let ship of ships) {
+            ship.classList.remove("ship-box")
+        }
+        playerContainer[0].removeChild(randomise[0])
+        playerContainer[1].removeChild(randomise[1])
+        modeChosen = true;
+    } else {
+        alert("Reset before choosing another mode");
+    }
+})
+
+playerVsPlayerOption.addEventListener("click", () => {
+    if (!modeChosen) {
+        options.appendChild(lockPositionPlayerOne)
+        options.appendChild(lockPositionPlayerTwo)
+        modeChosen = true;
+    } else {
+        alert("Reset before choosing another mode");
+    }
+
+})
+
+lockPositionPlayerOne.addEventListener("click", () => {
+    playerContainer[0].removeChild(randomise[0])
+    let ships = gridContainer[0].children
     for (let ship of ships) {
         ship.classList.remove("ship-box")
     }
 })
 
-playerVsPlayerOption.addEventListener("click", () => {
-
+lockPositionPlayerTwo.addEventListener("click", () => {
+    playerContainer[1].removeChild(randomise[1])
+    let ships = gridContainer[1].children
+    for (let ship of ships) {
+        ship.classList.remove("ship-box")
+    }
 })
 
 
@@ -60,26 +105,37 @@ export const gameController = (() => {
     //by checking which gameboards ships sunk we can see who won the game
     const checkEndGame = (board) => {
         gameEnded = board;
-        if (gameBoardPlayerOne.allShipsSunk == true) {
-            return console.log("player 2 won")
+
+        if (gameBoardPlayerOne.allShipsSunk == true && gameEnded == false) {
+            gameEnded = true;
+            return alert("player 2 won")
         }
-        if (gameBoardPlayerTwo.allShipsSunk == true) {
-            return console.log("player 1 won")
+        if (gameBoardPlayerTwo.allShipsSunk == true && gameEnded == false) {
+            gameEnded = true;
+            return alert("player 1 won")
+        }
+        if (gameEnded == true) {
+            return alert("Reset before playing again")
         }
         return gameBoardPlayerOne.allShipsSunk;
     }
 
     const turn = (gridBox) => {
-
+        if (modeChosen == false) {
+            alert("Choose a mode from bottom to be able to play")
+            window.location.reload(true);
+        }
+        let tmp = gridBox;
+        console.log(vsAiActive)
         // PLAYER 1 TURN
         if (playerTurn == 0) {
             // this is how we show whose turn it is
-            turnShower[1].classList.toggle("turn-shower")
-            turnShower[0].classList.toggle("turn-shower")
+            // turnShower[1].classList.toggle("turn-shower")
+            // turnShower[0].classList.toggle("turn-shower")
 
             playerOne.turn = false;
             playerTwo.turn = true;
-
+            console.log(gridBox)
             //getting the current gridbox's coordinates
             let gridBoxCoordinatesY = gridBox.getAttribute("coordinatesY");
             let gridBoxCoordinatesX = gridBox.getAttribute("coordinatesX");
@@ -195,38 +251,47 @@ export const gameController = (() => {
                     let coordinatesXX = gridBox.getAttribute("coordinatesx");
                     if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) + 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) + 1) {
                         gridBox.classList.add("ship-miss")
+
                     }
                     if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) - 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) - 1) {
                         gridBox.classList.add("ship-miss")
+
                     }
                     if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) - 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) + 1) {
                         gridBox.classList.add("ship-miss")
+
                     }
                     if (Number(coordinatesYY) == Number(gridBoxCoordinatesY) + 1 && Number(coordinatesXX) == Number(gridBoxCoordinatesX) - 1) {
                         gridBox.classList.add("ship-miss")
+
                     }
                 })
 
                 gameBoardPlayerTwo.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX] = 2;
             } else {
-                gridBox.classList.add("ship-miss")
-            }
+                // IF MISSES
 
-            console.log("play 1 played")
-            playerTurn++;
+                gridBox.classList.add("ship-miss")
+                console.log("play 1 played")
+                playerTurn++;
+                // this is how we show whose turn it is on ui
+                turnShower[1].classList.toggle("turn-shower")
+                turnShower[0].classList.toggle("turn-shower")
+                // if player chose to play againts ai
+                // we need to prompt ai's turn without needing 
+                // for someone to click on the board
+                if (vsAiActive) { gameController.turn() }
+            }
             checkEndGame(gameBoardPlayerTwo.checkShipsSunk());
             // PLAYER 2 TURN
         } else if (playerTurn == 1) {
             if (vsAiActive) {
-                turnShower[0].classList.toggle("turn-shower")
-                turnShower[1].classList.toggle("turn-shower")
-                let gridBoxCoordinatesY = Math.floor(Math.random() * 11)
-                let gridBoxCoordinatesX = Math.floor(Math.random() * 11)
+
+                let gridBoxCoordinatesY = Math.floor(Math.random() * 10)
+                let gridBoxCoordinatesX = Math.floor(Math.random() * 10)
                 playerOne.turn = true;
                 playerTwo.turn = false;
                 if (gameBoardPlayerOne.receiveAttack(gridBoxCoordinatesY, gridBoxCoordinatesX) == true) {
-                    // we add a ship hit class for UI
-                    gridBox.classList.add("ship-hit")
                     // here we need enemys board and elemets to change the surrounding grid boxes of the sunk ship
                     // we first get all the child notes and then if its horizontal we just need to bottom + 1 of the ship and
                     // top - 1 that way we get all the surrounding boxes including cross hits
@@ -236,8 +301,15 @@ export const gameController = (() => {
                     // original ship coordinates to determine which boxes to mark as "miss"
                     let shipCoordinateY = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipCoordinate[0]
                     let shipCoordinateX = gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipCoordinate[1]
-                    
+                    gridBoxes.forEach((gridBox) => {
+                        let gridBoxCoordinatesYFromElement = gridBox.getAttribute("coordinatesy");
+                        let gridBoxCoordinatesXFromElement = gridBox.getAttribute("coordinatesx");
+                        if (gridBoxCoordinatesYFromElement == gridBoxCoordinatesY && gridBoxCoordinatesXFromElement == gridBoxCoordinatesX) {
+                            gridBox.classList.add("ship-hit")
+                        }
+                    })
 
+                    console.log("hit")
                     // if ship sunk mark top and bottom of the ship as "miss"
                     if (gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].isSunk() &&
                         gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX].shipDirection == "vertical" &&
@@ -341,19 +413,27 @@ export const gameController = (() => {
                             gridBox.classList.add("ship-miss")
                         }
                     })
-
                     gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX] = 2;
+                    gameController.turn(tmp);
                 } else {
-                    gridBox.classList.add("ship-miss")
+                    let gridBoxes = gridContainer[0].childNodes;
+                    gridBoxes.forEach((gridBox) => {
+                        let gridBoxCoordinatesYFromElement = gridBox.getAttribute("coordinatesy");
+                        let gridBoxCoordinatesXFromElement = gridBox.getAttribute("coordinatesx");
+                        if (gridBoxCoordinatesYFromElement == gridBoxCoordinatesY && gridBoxCoordinatesXFromElement == gridBoxCoordinatesX) {
+                            gridBox.classList.add("ship-miss")
+                        }
+                    })
+                    playerTurn--;
+                    console.log("player 2 played")
+                    // this is how we show whose turn it is on ui
+                    turnShower[0].classList.toggle("turn-shower")
+                    turnShower[1].classList.toggle("turn-shower")
                 }
-                console.log("player 2 played")
-                playerTurn--;
-                checkEndGame(gameBoardPlayerOne.checkShipsSunk());
-            } else {
-                // this is how we show whose turn it is
-                turnShower[0].classList.toggle("turn-shower")
-                turnShower[1].classList.toggle("turn-shower")
 
+                checkEndGame(gameBoardPlayerOne.checkShipsSunk());
+
+            } else {
                 playerOne.turn = true;
                 playerTwo.turn = false;
 
@@ -485,11 +565,15 @@ export const gameController = (() => {
                     gameBoardPlayerOne.coordinates[gridBoxCoordinatesY][gridBoxCoordinatesX] = 2;
                 } else {
                     gridBox.classList.add("ship-miss")
+
+                    console.log("player 2 played")
+                    playerTurn--;
+                    // this is how we show whose turn it is on ui
+                    turnShower[0].classList.toggle("turn-shower")
+                    turnShower[1].classList.toggle("turn-shower")
                 }
 
 
-                console.log("player 2 played")
-                playerTurn--;
                 checkEndGame(gameBoardPlayerOne.checkShipsSunk());
             }
 
@@ -551,6 +635,40 @@ function placeRandomShip(gameBoard) {
             [2, 8, "vertical", "small"],
             [0, 8, "vertical", "small"],
         ],
+        [
+            [2, 4, "vertical", "huge"],
+            [5, 8, "vertical", "long"],
+            [0, 6, "vertical", "long"],
+            [3, 1, "vertical", "medium"],
+            [8, 6, "vertical", "medium"],
+            [3, 8, "horizontal", "medium"],
+            [9, 9, "vertical", "small"],
+            [9, 2, "horizontal", "small"],
+            [8, 4, "horizontal", "small"],
+            [7, 0, "vertical", "small"],
+        ], [
+            [3, 5, "vertical", "huge"],
+            [0, 0, "horizontal", "long"],
+            [8, 5, "horizontal", "long"],
+            [2, 1, "vertical", "medium"],
+            [6, 2, "vertical", "medium"],
+            [2, 9, "vertical", "medium"],
+            [0, 4, "horizontal", "small"],
+            [8, 0, "vertical", "small"],
+            [6, 9, "vertical", "small"],
+            [1, 6, "vertical", "small"],
+        ], [
+            [6, 3, "horizontal", "huge"],
+            [5, 9, "vertical", "long"],
+            [5, 1, "vertical", "long"],
+            [2, 8, "horizontal", "medium"],
+            [0, 0, "vertical", "medium"],
+            [8, 4, "vertical", "medium"],
+            [9, 2, "vertical", "small"],
+            [4, 5, "vertical", "small"],
+            [3, 3, "horizontal", "small"],
+            [0, 7, "horizontal", "small"],
+        ],
     ]
     let randomPositionSelecter = Math.floor(Math.random() * randomMoves.length);
 
@@ -600,18 +718,6 @@ placeRandomShip(gameBoardPlayerTwo)
 
 putShipsOnBoard(gridContainer[0], gameBoardPlayerOne, gameController);
 putShipsOnBoard(gridContainer[1], gameBoardPlayerTwo, gameController);
-
-
-
-
-
-
-
-// after we lock positions remove randomise option
-playButton.addEventListener("click", () => {
-    playerContainer[0].removeChild(randomise[0])
-    playerContainer[1].removeChild(randomise[1])
-})
 
 
 
